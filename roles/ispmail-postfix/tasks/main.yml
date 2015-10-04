@@ -80,3 +80,7 @@
   copy: src=etc-default-spamassassin dest=/etc/default/spamassassin
   notify: restart spamassassin
 
+#- name: Adding user spamass-milter to debian-spamd group
+#  user: name=spamass-milter groups=debian-spamd
+#  notify: restart spamassassin
+
