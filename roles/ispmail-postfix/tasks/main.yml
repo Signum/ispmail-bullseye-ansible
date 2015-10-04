@@ -19,4 +19,10 @@
 - name: tell Postfix to use the email-to-email mapping
   shell: postconf virtual_alias_maps=mysql:/etc/postfix/mysql-virtual-alias-maps.cf,mysql:/etc/postfix/mysql-email2email.cf
 
+- name: Restricting access to database mapping files that contain a password
+  file: path=/etc/postfix/mysql-{{item}}.cf mode=0640
+  with_items:
+  - virtual-mailbox-domains
+  - virtual-mailbox-maps
+  - virtual-alias-maps
 
