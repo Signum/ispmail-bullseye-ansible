@@ -40,3 +40,30 @@
 - name: Restricting delivery to Dovecot to one email at a time
   shell: postconf dovecot_destination_recipient_limit=1
 
+- name: Setting SMTP authentication type to dovecot
+  shell: postconf smtpd_sasl_type=dovecot
+
+- name: Setting SMTP authentication path/socket
+  shell: postconf smtpd_sasl_path=private/auth
+
+- name: Enabling SMTP authentication
+  shell: postconf smtpd_sasl_auth_enable=yes
+
+- name: Setting SMTP encryption security level
+  shell: postconf smtpd_tls_security_level=may
+
+- name: Setting SMTP encryption security level
+  shell: postconf smtpd_tls_security_level=may
+
+- name: Enforce SMTP encryption
+  shell: postconf smtpd_tls_auth_only=yes
+
+- name: Set TLS encryption certificate
+  shell: postconf smtpd_tls_cert_file=/etc/ssl/certs/mailserver.pem
+
+- name: Set TLS encryption key
+  shell: postconf smtpd_tls_key_file=/etc/ssl/private/mailserver.pem
+
+- name: Enabling SMTP authentication during the SMTP protocol
+  shell: postconf smtpd_recipient_restrictions=permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination
+
