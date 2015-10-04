@@ -142,6 +142,6 @@
 
 driver = mysql
 connect = host=127.0.0.1 dbname=mailserver user=mailuser password={{ispmail_mysql_mailuser_password}}
-default_pass_scheme = PLAIN-MD5
+default_pass_scheme = SHA256-CRYPT
 password_query = SELECT email as user, password FROM virtual_users WHERE email='%u';
 

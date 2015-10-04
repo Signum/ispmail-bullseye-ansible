@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `virtual_domains` (
 CREATE TABLE IF NOT EXISTS `virtual_users` (
   `id` int(11) NOT NULL auto_increment,
   `domain_id` int(11) NOT NULL,
-  `password` varchar(32) NOT NULL,
+  `password` varchar(150) NOT NULL,
   `email` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
