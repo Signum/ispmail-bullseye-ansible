@@ -2,3 +2,6 @@
 - name: restart postfix
   service: name=postfix state=restarted
 
+- name: restart spamassassin
+  service: name=spamassassin state=restarted
+

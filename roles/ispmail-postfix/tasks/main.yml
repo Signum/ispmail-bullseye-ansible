@@ -66,4 +66,16 @@
 
 - name: Enabling SMTP authentication during the SMTP protocol
   shell: postconf smtpd_recipient_restrictions=permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination
+- name: Enabling Spamassassin milter
+  command: postconf smtpd_milters=unix:/spamass/spamass.sock
+
+- name: Make Spamassassin milter problems return a temporary error
+  command: postconf milter_default_action=tempfail
+
+- name: Configuring Spamassassin milter
+  command: postconf milter_connect_macros="j {daemon_name} v {if_name} _"
+
+- name: Enabling spamd
+  copy: src=etc-default-spamassassin dest=/etc/default/spamassassin
+  notify: restart spamassassin
 
