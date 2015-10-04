@@ -6,4 +6,5 @@
   - dumpvars
   - ispmail-certificate
   - ispmail-database
+  - ispmail-postfix
 
