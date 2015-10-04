@@ -3,25 +3,25 @@
   template: src=mysql-virtual-mailbox-domains.cf.j2 dest=/etc/postfix/mysql-virtual-mailbox-domains.cf
   notify: restart postfix
 - name: tell Postfix to use the virtual mailbox domain mapping
-  shell: postconf virtual_mailbox_domains=mysql:/etc/postfix/mysql-virtual-mailbox-domains.cf
+  command: postconf virtual_mailbox_domains=mysql:/etc/postfix/mysql-virtual-mailbox-domains.cf
 
 - name: define Postfix virtual mailbox mapping
   template: src=mysql-virtual-mailbox-maps.cf.j2 dest=/etc/postfix/mysql-virtual-mailbox-maps.cf
   notify: restart postfix
 - name: tell Postfix to use the virtual mailbox mapping
-  shell: postconf virtual_mailbox_maps=mysql:/etc/postfix/mysql-virtual-mailbox-maps.cf
+  command: postconf virtual_mailbox_maps=mysql:/etc/postfix/mysql-virtual-mailbox-maps.cf
 
 - name: define Postfix virtual alias mapping
   template: src=mysql-virtual-alias-maps.cf.j2 dest=/etc/postfix/mysql-virtual-alias-maps.cf
   notify: restart postfix
 - name: tell Postfix to use the virtual alias mapping
-  shell: postconf virtual_alias_maps=mysql:/etc/postfix/mysql-virtual-alias-maps.cf
+  command: postconf virtual_alias_maps=mysql:/etc/postfix/mysql-virtual-alias-maps.cf
 
 - name: define Postfix email-to-email mapping (required for catchall domains)
   template: src=mysql-email2email.cf.j2 dest=/etc/postfix/mysql-email2email.cf
   notify: restart postfix
 - name: tell Postfix to use the email-to-email mapping
-  shell: postconf virtual_alias_maps=mysql:/etc/postfix/mysql-virtual-alias-maps.cf,mysql:/etc/postfix/mysql-email2email.cf
+  command: postconf virtual_alias_maps=mysql:/etc/postfix/mysql-virtual-alias-maps.cf,mysql:/etc/postfix/mysql-email2email.cf
 
 - name: Restricting access to database mapping files that contain a password
   file: path=/etc/postfix/mysql-{{item}}.cf mode=0640
@@ -31,41 +31,42 @@
   - virtual-alias-maps
 
 - name: Define dovecot service in master.cf
-  shell: postconf -vM dovecot/unix='dovecot unix - n n - - pipe flags=DRhu user=vmail:vmail argv=/usr/lib/dovecot/dovecot-lda -f ${sender} -d ${recipient}'
+  command: postconf -vM dovecot/unix='dovecot unix - n n - - pipe flags=DRhu user=vmail:vmail argv=/usr/lib/dovecot/dovecot-lda -f ${sender} -d ${recipient}'
   notify: restart postfix
 
 - name: Set virtual_transport to dovecot
-  shell: postconf virtual_transport=dovecot
+  command: postconf virtual_transport=dovecot
 
 - name: Restricting delivery to Dovecot to one email at a time
-  shell: postconf dovecot_destination_recipient_limit=1
+  command: postconf dovecot_destination_recipient_limit=1
 
 - name: Setting SMTP authentication type to dovecot
-  shell: postconf smtpd_sasl_type=dovecot
+  command: postconf smtpd_sasl_type=dovecot
 
 - name: Setting SMTP authentication path/socket
-  shell: postconf smtpd_sasl_path=private/auth
+  command: postconf smtpd_sasl_path=private/auth
 
 - name: Enabling SMTP authentication
-  shell: postconf smtpd_sasl_auth_enable=yes
+  command: postconf smtpd_sasl_auth_enable=yes
 
 - name: Setting SMTP encryption security level
-  shell: postconf smtpd_tls_security_level=may
+  command: postconf smtpd_tls_security_level=may
 
 - name: Setting SMTP encryption security level
-  shell: postconf smtpd_tls_security_level=may
+  command: postconf smtpd_tls_security_level=may
 
 - name: Enforce SMTP encryption
-  shell: postconf smtpd_tls_auth_only=yes
+  command: postconf smtpd_tls_auth_only=yes
 
 - name: Set TLS encryption certificate
-  shell: postconf smtpd_tls_cert_file=/etc/ssl/certs/mailserver.pem
+  command: postconf smtpd_tls_cert_file=/etc/ssl/certs/mailserver.pem
 
 - name: Set TLS encryption key
-  shell: postconf smtpd_tls_key_file=/etc/ssl/private/mailserver.pem
+  command: postconf smtpd_tls_key_file=/etc/ssl/private/mailserver.pem
 
 - name: Enabling SMTP authentication during the SMTP protocol
-  shell: postconf smtpd_recipient_restrictions=permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination
+  command: postconf smtpd_recipient_restrictions=permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination
+
 - name: Enabling Spamassassin milter
   command: postconf smtpd_milters=unix:/spamass/spamass.sock
 
