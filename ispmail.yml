@@ -4,4 +4,5 @@
   roles:
   - ispmail-packages
   - dumpvars
+  - ispmail-certificate
 

@@ -1,0 +1,4 @@
+---
+- name: Create a self-signed certificate
+  shell: openssl req -new -x509 -days 3650 -subj "/C=DE/ST=Hamburg/L=Hamburg/O=IT/CN={{ansible_fqdn}}" -nodes -sha256 -newkey rsa:4096 -out /etc/ssl/certs/mailserver.pem -keyout /etc/ssl/private/mailserver.pem -extensions v3_ca creates=/etc/ssl/certs/mailserver.pem
+
