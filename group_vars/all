@@ -2,5 +2,17 @@ ispmail_mysql_mailuser_password: fLxsWdf5ABLqwhZr
 
 ispmail_dovecot_auth_mechanisms: plain login
 
+ispmail_postmaster_address: postmaster@example.org
+
 ispmail_populate_test_data: true
+
+ispmail_certificate_country: DE
+ispmail_certificate_state: Hamburg
+ispmail_certificate_location: Hamburg
+ispmail_certificate_organisation: workaround.org
+ispmail_certificate_orgunit: IT-Crowd
+ispmail_certificate_domains:
+  - example.org
+ispmail_certificate_email: postmaster@example.org
+ispmail_certificate_days_valid: 3650
 

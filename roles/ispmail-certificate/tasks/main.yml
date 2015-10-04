@@ -1,6 +1,16 @@
 ---
 - name: Create a self-signed certificate
-  shell: openssl req -new -x509 -days 3650 -subj "/C=DE/ST=Hamburg/L=Hamburg/O=IT/CN={{ansible_fqdn}}" -nodes -sha256 -newkey rsa:4096 -out /etc/ssl/certs/mailserver.pem -keyout /etc/ssl/private/mailserver.pem -extensions v3_ca creates=/etc/ssl/certs/mailserver.pem
+  command: >
+    openssl req -new
+      -x509
+      -nodes
+      -extensions v3_ca
+      -days {{ ispmail_certificate_days_valid }}
+      -subj "/C={{ ispmail_certificate_country }}/ST={{ ispmail_certificate_state }}/L={{ ispmail_certificate_location }}/O={{ ispmail_certificate_organisation }}/OU={{ ispmail_certificate_orgunit }}{% for domain in ispmail_certificate_domains %}/CN={{ domain }}{% endfor %}/emailAddress={{ ispmail_certificate_email }}"
+      -keyout /etc/ssl/private/mailserver.pem
+      -out /etc/ssl/certs/mailserver.pem
+  args:
+    creates: /etc/ssl/certs/mailserver.pem
 - name: Restrict access permissions of the private key
   file: path=/etc/ssl/private/mailserver.pem mode=0640
 
