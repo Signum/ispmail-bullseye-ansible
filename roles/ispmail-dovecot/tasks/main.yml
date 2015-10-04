@@ -1,0 +1,14 @@
+---
+- name: Create the vmail group
+  group: name=vmail gid=5000
+- name: Create the vmail user
+  user: name=vmail uid=5000 group=vmail
+- name: Create mailbox directory
+  file: path=/var/vmail state=directory owner=vmail group=vmail
+- name: Allow LOGIN authentication method for Outlook clients
+  lineinfile: dest=/etc/dovecot/conf.d/10-auth.conf regexp='^auth_mechanisms =' line='auth_mechanisms = {{ispmail_dovecot_auth_mechanisms}}' backrefs=yes
+- name: Disabling system authentication
+  lineinfile: dest=/etc/dovecot/conf.d/10-auth.conf regexp='^!include auth-system.conf.ext' line='#!include auth-system.conf.ext' backrefs=yes
+- name: Enabling SQL-based authentication
+  lineinfile: dest=/etc/dovecot/conf.d/10-auth.conf regexp='^\#!include auth-sql.conf.ext' line='!include auth-sql.conf.ext' backrefs=yes
+

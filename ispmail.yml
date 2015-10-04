@@ -7,4 +7,5 @@
   - ispmail-certificate
   - ispmail-database
   - ispmail-postfix
+  - ispmail-dovecot
 
