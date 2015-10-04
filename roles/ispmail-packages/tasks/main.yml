@@ -1,3 +1,25 @@
 ---
-- debug: msg="Foo"
+- name: adding Jessie backports repository (for Roundcube)
+  apt_repository: repo='deb http://http.debian.net/debian jessie-backports main' state=present
+- name: install required binary packages
+  apt: name={{item}} state=installed
+  with_items:
+  - mysql-server
+  - postfix 
+  - postfix-mysql
+  - swaks
+  - dovecot-mysql 
+  - dovecot-pop3d 
+  - dovecot-imapd 
+  - dovecot-managesieved
+  - roundcube 
+  - roundcube-plugins
+  - phpmyadmin
+- name: purge Exim installation
+  apt: name={{item}} state=absent purge=yes
+  with_items:
+  - exim4
+  - exim4-base
+  - exim4-config
+  - exim4-daemon-light
 
