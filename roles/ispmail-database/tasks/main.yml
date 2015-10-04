@@ -1,0 +1,12 @@
+---
+- name: Install required Python mysqldb module for Ansible to manage databases
+  apt: pkg=python-mysqldb state=installed
+- name: create mailserver MySQL database
+  mysql_db: name=mailserver state=present
+- name: copy MySQL database schema to server
+  copy: src=schema.sql dest=/tmp
+- name: creating mailserver MySQL database
+  mysql_db: name=mailserver state=import target=/tmp/schema.sql
+- name: creating MySQL user to read the mailserver database
+  mysql_user: name=mailuser password={{ispmail_mysql_mailuser_password}} priv=mailserver.*:SELECT state=present
+
