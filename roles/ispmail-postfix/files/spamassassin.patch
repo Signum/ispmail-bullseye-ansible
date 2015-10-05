@@ -1,0 +1,11 @@
+--- /usr/share/perl5/Mail/SpamAssassin/Util.pm.orig     2014-08-22 00:08:39.185602751 +0200
++++ /usr/share/perl5/Mail/SpamAssassin/Util.pm  2014-08-22 00:09:18.330883723 +0200
+@@ -285,7 +285,7 @@
+   my $r = ref $_[0];
+   if (!$r) {
+     no re 'taint';  # override a  "use re 'taint'"  from outer scope
+-    return if !defined $_[0];
++    return undef if !defined $_[0];
+     local($1); # avoid Perl taint bug: tainted global $1 propagates taintedness
+     $_[0] =~ /^(.*)\z/s;
+     return $1;
