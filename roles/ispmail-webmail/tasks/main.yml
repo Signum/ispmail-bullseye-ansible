@@ -15,4 +15,6 @@
   copy: src=roundcube-managesieve-config.inc.php dest=/etc/roundcube/plugins/managesieve/config.inc.php mode=0640
 - name: Deploying Roundcube password plugin configuration
   template: src=roundcube-password-config.inc.php.j2 dest=/etc/roundcube/plugins/password/config.inc.php owner=root group=www-data mode=640
+- name: Copy ISPmail logo
+  copy: src=ispmail-logo.png dest=/var/lib/roundcube/
 
