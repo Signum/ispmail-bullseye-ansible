@@ -2,9 +2,9 @@
 
 - hosts: all
   roles:
-  - ispmail-packages
   - dumpvars
   - thydel.patch
+  - ispmail-packages
   - ispmail-certificate
   - ispmail-database
   - ispmail-postfix
