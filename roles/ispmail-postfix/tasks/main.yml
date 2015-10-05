@@ -67,6 +67,12 @@
 - name: Enabling SMTP authentication during the SMTP protocol
   command: postconf smtpd_recipient_restrictions=permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination
 
+- name: Copying patch for Debuan bug \#739738
+  copy: src=spamassassin.patch dest=/tmp/spamassassin.patch
+
+- name: Patching Debian bug \#739738
+  patch: patchfile=/tmp/spamassassin.patch strip=0 basedir=/
+
 - name: Enabling Spamassassin milter
   command: postconf smtpd_milters=unix:/spamass/spamass.sock
 

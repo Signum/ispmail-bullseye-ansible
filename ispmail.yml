@@ -4,6 +4,7 @@
   roles:
   - ispmail-packages
   - dumpvars
+  - thydel.patch
   - ispmail-certificate
   - ispmail-database
   - ispmail-postfix

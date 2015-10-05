@@ -1,0 +1,8 @@
+.hg/
+.hgignore
+.hgremote
+.gitconfig
+.gitremote
+.gitfirstcommit
+.hgfirstcommit
+README.html
