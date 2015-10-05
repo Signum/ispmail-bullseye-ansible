@@ -82,7 +82,7 @@
 - name: Configuring Spamassassin milter
   command: postconf milter_connect_macros="j {daemon_name} v {if_name} _"
 
-- name: Enabling spamd
+- name: Setting spamd options
   copy: src=etc-default-spamassassin dest=/etc/default/spamassassin
   notify: restart spamassassin
 
