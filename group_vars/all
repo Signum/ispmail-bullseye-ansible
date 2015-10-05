@@ -1,10 +1,13 @@
+ispmail_populate_test_data: true
+ispmail_install_webmail: true
+
 ispmail_mysql_mailuser_password: fLxsWdf5ABLqwhZr
 
 ispmail_dovecot_auth_mechanisms: plain login
 
 ispmail_postmaster_address: postmaster@example.org
 
-ispmail_populate_test_data: true
+ispmail_webmail_hostname: webmail.example.org
 
 ispmail_certificate_country: DE
 ispmail_certificate_state: Hamburg

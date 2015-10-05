@@ -1,0 +1,28 @@
+---
+- name: adding Jessie backports repository (for Roundcube)
+  apt_repository: repo='deb http://http.debian.net/debian jessie-backports main' state=present
+- name: install required binary packages
+  apt: name={{item}} state=installed
+  with_items:
+  - roundcube 
+  - roundcube-plugins
+  - apache2
+  - libapache2-mod-php5
+  notify: restart apache
+- name: Create Apache vhost configuration for Webmail
+  template: src=webmail.conf.j2 dest=/etc/apache2/sites-available/webmail.conf
+  notify: restart apache
+- name: Enable Apache vhost
+  command: /usr/sbin/a2ensite webmail.conf creates=/etc/apache2/sites-enabled/webmail.conf
+  notify: restart apache
+- name: Enabling Apache SSL module
+  command: /usr/sbin/a2enmod ssl creates=/etc/apache2/mods-enabled/ssl.conf
+  notify: restart apache
+- name: Creating random des_key for Roundcube
+  shell: pwgen 24
+  register: roundcube_random_des_key
+- name: Deploying Roundcube configuration
+  template: src=roundcube-config.inc.php.j2 dest=/etc/roundcube/config.inc.php owner=root group=www-data mode=640
+- name: Deploying Roundcube managesieve plugin configuration
+  copy: src=roundcube-managesieve-config.inc.php dest=/etc/roundcube/plugins/managesieve/config.inc.php mode=0640
+
