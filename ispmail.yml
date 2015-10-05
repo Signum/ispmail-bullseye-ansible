@@ -9,5 +9,6 @@
   - ispmail-database
   - ispmail-postfix
   - ispmail-dovecot
-  - { role: ispmail-webmail, when: "ispmail_populate_test_data == true" }
+  - ispmail-webmail
+  - ispmail-webmail-apache
 

@@ -6,18 +6,6 @@
   with_items:
   - roundcube 
   - roundcube-plugins
-  - apache2
-  - libapache2-mod-php5
-  notify: restart apache
-- name: Create Apache vhost configuration for Webmail
-  template: src=webmail.conf.j2 dest=/etc/apache2/sites-available/webmail.conf
-  notify: restart apache
-- name: Enable Apache vhost
-  command: /usr/sbin/a2ensite webmail.conf creates=/etc/apache2/sites-enabled/webmail.conf
-  notify: restart apache
-- name: Enabling Apache SSL module
-  command: /usr/sbin/a2enmod ssl creates=/etc/apache2/mods-enabled/ssl.conf
-  notify: restart apache
 - name: Creating random des_key for Roundcube
   shell: pwgen 24
   register: roundcube_random_des_key
