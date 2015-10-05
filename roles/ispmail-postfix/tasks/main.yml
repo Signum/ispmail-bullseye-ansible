@@ -92,3 +92,9 @@
 - name: Enabling spamd at startup
   command: systemctl enable spamassassin
 
+- name: Allow emails up to 40 MB large
+  command: postconf message_size_limit=41943040
+
+- name: Make Postfix listen on all interfaces
+  command: postconf inet_interfaces=all
+
