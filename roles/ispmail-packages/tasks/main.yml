@@ -1,6 +1,4 @@
 ---
-- name: adding Jessie backports repository (for Roundcube)
-  apt_repository: repo='deb http://http.debian.net/debian jessie-backports main' state=present
 - name: install required binary packages
   apt: name={{item}} state=installed
   with_items:
@@ -12,11 +10,10 @@
   - dovecot-pop3d 
   - dovecot-imapd 
   - dovecot-managesieved
-  - roundcube 
-  - roundcube-plugins
   - phpmyadmin
   - spamass-milter
   - spamassassin
+  - pwgen
 - name: purge Exim installation
   apt: name={{item}} state=absent purge=yes
   with_items:
