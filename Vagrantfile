@@ -78,7 +78,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.provider "virtualbox" do |vb|
     #config.vm.network "private_network", :type => 'dhcp', :name => 'vboxnet0', :adapter => 2
-    config.vm.network "private_network", type: "dhcp"
+    config.vm.network "private_network", ip: "10.0.0.100"
   end
 end
 
