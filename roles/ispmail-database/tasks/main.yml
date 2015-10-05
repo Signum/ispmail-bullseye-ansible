@@ -8,7 +8,7 @@
 - name: setting up SQL schema of mailserver database
   mysql_db: name=mailserver state=import target=/tmp/schema.sql
 - name: creating MySQL user to read the mailserver database
-  mysql_user: name=mailuser password={{ispmail_mysql_mailuser_password}} priv=mailserver.*:SELECT state=present
+  mysql_user: name=mailuser password={{ispmail_mysql_mailuser_password}} priv=mailserver.*:SELECT,INSERT,UPDATE,DELETE state=present
 - name: copying MySQL test data to server
   copy: src=test.sql dest=/tmp
   when: ispmail_populate_test_data == true
