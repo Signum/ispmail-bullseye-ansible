@@ -3,12 +3,12 @@
   apt: name={{item}} state=installed
   with_items:
   - mysql-server
-  - postfix 
+  - postfix
   - postfix-mysql
   - swaks
-  - dovecot-mysql 
-  - dovecot-pop3d 
-  - dovecot-imapd 
+  - dovecot-mysql
+  - dovecot-pop3d
+  - dovecot-imapd
   - dovecot-managesieved
   - phpmyadmin
   - spamass-milter
