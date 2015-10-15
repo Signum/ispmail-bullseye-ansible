@@ -1,6 +1,6 @@
 ---
 - name: install required binary packages
-  apt: name={{item}} state=installed
+  apt: name={{item}} state=installed update_cache=yes
   with_items:
   - mysql-server
   - postfix
