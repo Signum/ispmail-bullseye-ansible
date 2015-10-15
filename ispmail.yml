@@ -1,9 +1,8 @@
 ---
-
+# Requires Ansible >= 1.9
 - hosts: all
   roles:
-  - dumpvars
-  - thydel.patch
+  #- dumpvars
   - ispmail-packages
   - ispmail-certificate
   - ispmail-database
@@ -11,4 +10,3 @@
   - ispmail-dovecot
   - ispmail-webmail
   - ispmail-webmail-apache
-
