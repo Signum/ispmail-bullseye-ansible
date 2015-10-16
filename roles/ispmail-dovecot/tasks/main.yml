@@ -27,7 +27,7 @@
   copy: src=10-ssl.conf dest=/etc/dovecot/conf.d/10-ssl.conf
   notify: restart dovecot
 - name: Copying LDA configuration (10-lda.conf - enable sieve plugin)
-  copy: src=15-lda.conf dest=/etc/dovecot/conf.d/15-lda.conf
+  template: src=15-lda.conf.j2 dest=/etc/dovecot/conf.d/15-lda.conf
   notify: restart dovecot
 - name: Copying SQL access configuration (dovecot-ssql.conf.ext)
   template: src=dovecot-sql.conf.ext.j2 dest=/etc/dovecot/dovecot-sql.conf.ext

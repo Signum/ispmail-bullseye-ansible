@@ -18,3 +18,4 @@ ispmail_certificate_domains:
 ispmail_certificate_email: postmaster@example.org
 ispmail_certificate_days_valid: 3650
 
+ispmail_postmaster_address: postmaster@example.org
