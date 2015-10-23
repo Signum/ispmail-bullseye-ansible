@@ -64,9 +64,6 @@
 - name: Set TLS encryption key
   command: postconf smtpd_tls_key_file=/etc/ssl/private/mailserver.pem
 
-- name: Enabling SMTP authentication during the SMTP protocol
-  command: postconf smtpd_recipient_restrictions=permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination
-
 - name: Copying patch for Debian bug 739738
   copy: src=spamassassin.patch dest=/tmp/spamassassin.patch
 
