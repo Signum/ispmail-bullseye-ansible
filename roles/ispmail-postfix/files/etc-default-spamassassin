@@ -8,7 +8,7 @@
 # not used. Instead, enable spamd by issuing:
 # systemctl enable spamassassin.service
 # Change to "1" to enable spamd on systems using sysvinit:
-ENABLED=1
+ENABLED=0
 
 # Options
 # See man spamd for possible options. The -d option is automatically added.
