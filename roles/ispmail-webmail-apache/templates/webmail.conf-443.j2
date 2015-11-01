@@ -1,11 +1,10 @@
 <IfModule mod_ssl.c>
 	<VirtualHost _default_:443>
-		ServerAdmin webmaster@localhost
+		ServerAdmin {{ ispmail_postmaster_address }}
 		ServerName {{ ispmail_webmail_hostname }}
 
-		#DocumentRoot /var/www/html
 		Include /etc/roundcube/apache.conf
-		Alias /roundcube /var/lib/roundcube
+		Alias / /var/lib/roundcube/
 
 		# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
 		# error, crit, alert, emerg.
