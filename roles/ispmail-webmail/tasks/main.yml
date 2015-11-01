@@ -17,4 +17,5 @@
   template: src=roundcube-password-config.inc.php.j2 dest=/etc/roundcube/plugins/password/config.inc.php owner=root group=www-data mode=640
 - name: Copy ISPmail logo
   copy: src=ispmail-logo.png dest=/var/lib/roundcube/
-
+- name: Copy Roundcube database config file
+  template: src=roundcube-debian-db.php.j2 dest=/etc/roundcube/debian-db.php mode=0640
