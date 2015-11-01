@@ -2,6 +2,7 @@ ispmail_populate_test_data: true
 
 ispmail_mysql_mailuser_password: ChangeMe
 ispmail_mysql_root_password: ChangeMeRoot
+ispmail_mysql_roundcube_password: ChangeMeRound
 
 ispmail_dovecot_auth_mechanisms: plain login
 

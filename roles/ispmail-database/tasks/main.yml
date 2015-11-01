@@ -3,12 +3,16 @@
   apt: pkg=python-mysqldb state=installed
 - name: creating mailserver MySQL database
   mysql_db: name=mailserver state=present
+- name: creating Roundcube MySQL database
+  mysql_db: name=roundcube state=present
 - name: copying MySQL database schema to server
   copy: src=schema.sql dest=/tmp
 - name: setting up SQL schema of mailserver database
   mysql_db: name=mailserver state=import target=/tmp/schema.sql
 - name: creating MySQL user to read the mailserver database
   mysql_user: name=mailuser password={{ispmail_mysql_mailuser_password}} priv=mailserver.*:SELECT,INSERT,UPDATE,DELETE state=present
+- name: creating MySQL user for roundcube
+  mysql_user: name=roundcube password={{ispmail_mysql_roundcube_password}} priv=roundcube.*:ALL state=present
 - name: copying MySQL test data to server
   copy: src=test.sql dest=/tmp
   when: ispmail_populate_test_data == true
