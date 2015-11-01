@@ -7,7 +7,8 @@ ispmail_dovecot_auth_mechanisms: plain login
 
 ispmail_postmaster_address: postmaster@example.org
 
-ispmail_webmail_hostname: mail.example.org
+#ispmail_webmail_hostname: mail.example.org
+ispmail_webmail_hostname: 10.0.0.100
 
 ispmail_certificate_country: DE
 ispmail_certificate_state: Hamburg
