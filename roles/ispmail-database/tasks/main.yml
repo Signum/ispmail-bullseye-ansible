@@ -7,8 +7,6 @@
   copy: src=schema.sql dest=/tmp
 - name: setting up SQL schema of mailserver database
   mysql_db: name=mailserver state=import target=/tmp/schema.sql
-- name: set the MySQL root user's password
-  mysql_user: name=root password={{ispmail_mysql_root_password}} state=present
 - name: creating MySQL user to read the mailserver database
   mysql_user: name=mailuser password={{ispmail_mysql_mailuser_password}} priv=mailserver.*:SELECT,INSERT,UPDATE,DELETE state=present
 - name: copying MySQL test data to server
@@ -17,3 +15,7 @@
 - name: populating the database with test data
   mysql_db: name=mailserver state=import target=/tmp/test.sql
   when: ispmail_populate_test_data == true
+# - name: set the MySQL root user's password
+#   mysql_user: name=root password={{ispmail_mysql_root_password}} state=present
+# - name: Create root's .my.cnf
+#   template: src=my-cnf.j2 dest=/root/.my.cnf mode=0600
