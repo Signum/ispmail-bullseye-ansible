@@ -2,12 +2,14 @@ ispmail_populate_test_data: true
 
 ispmail_mysql_mailuser_password: ChangeMe
 ispmail_mysql_root_password: ChangeMeRoot
+ispmail_mysql_roundcube_password: ChangeMeRound
 
 ispmail_dovecot_auth_mechanisms: plain login
 
 ispmail_postmaster_address: postmaster@example.org
 
-ispmail_webmail_hostname: mail.example.org
+#ispmail_webmail_hostname: mail.example.org
+ispmail_webmail_hostname: 10.0.0.100
 
 ispmail_certificate_country: DE
 ispmail_certificate_state: Hamburg
@@ -18,5 +20,3 @@ ispmail_certificate_domains:
   - example.org
 ispmail_certificate_email: postmaster@example.org
 ispmail_certificate_days_valid: 3650
-
-ispmail_postmaster_address: postmaster@example.org
