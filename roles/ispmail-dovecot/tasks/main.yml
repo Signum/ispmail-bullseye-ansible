@@ -29,6 +29,9 @@
 - name: Copying LDA configuration (10-lda.conf - enable sieve plugin)
   template: src=15-lda.conf.j2 dest=/etc/dovecot/conf.d/15-lda.conf
   notify: restart dovecot
+- name: Copying mailboxes configuration (15-mailboxes.conf - autocreate folders)
+  copy: src=15-mailboxes.conf dest=/etc/dovecot/conf.d/15-mailboxes.conf
+  notify: restart dovecot
 - name: Copying SQL access configuration (dovecot-ssql.conf.ext)
   template: src=dovecot-sql.conf.ext.j2 dest=/etc/dovecot/dovecot-sql.conf.ext
   notify: restart dovecot
