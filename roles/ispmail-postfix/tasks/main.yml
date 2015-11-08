@@ -74,7 +74,7 @@
   command: postconf smtpd_milters=unix:/spamass/spamass.sock
 
 - name: Configuring Spamassassin milter
-  command: postconf milter_connect_macros="j {daemon_name} v {if_name} _"
+  command: postconf milter_connect_macros="i j {daemon_name} v {if_name} _"
 
 - name: Setting spamd options
   copy: src=etc-default-spamassassin dest=/etc/default/spamassassin
