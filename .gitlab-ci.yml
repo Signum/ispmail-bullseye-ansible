@@ -1,8 +1,6 @@
 image: debian:8
 
-#before_script:
-
-install:
+before_script:
     - pip install ansible
 
 job1:
