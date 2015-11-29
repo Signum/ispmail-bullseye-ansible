@@ -1,5 +1,9 @@
 image: williamyeh/ansible:debian8
 
+before_script:
+    - apt-get update
+    - apt-get -y install patch
+
 variables:
     HOSTNAME: default.example.org
 
