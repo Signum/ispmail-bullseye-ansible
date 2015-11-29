@@ -1,3 +1,10 @@
+image: debian:8
+
+#before_script:
+
+install:
+    - pip install ansible
+
 job1:
     script: "ansible-playbook ispmail.yml"
 
