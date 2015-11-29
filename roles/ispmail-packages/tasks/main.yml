@@ -14,6 +14,7 @@
   - spamass-milter
   - spamassassin
   - pwgen
+  - patch
 - name: purge Exim installation
   apt: name={{item}} state=absent purge=yes
   with_items:
