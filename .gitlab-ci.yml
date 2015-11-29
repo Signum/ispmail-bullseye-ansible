@@ -1,6 +1,8 @@
 image: debian:8
 
 before_script:
+    - apt-get update -qy
+    - apt-get install -y python-pip
     - pip install ansible
 
 job1:
