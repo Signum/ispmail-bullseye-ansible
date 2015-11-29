@@ -1,10 +1,5 @@
 image: williamyeh/ansible:debian8
 
-#before_script:
-#    - apt-get update -qy
-#    - apt-get install -y python-dev python-pip
-#    - pip install ansible
-
 variables:
     HOSTNAME: default.example.org
 
