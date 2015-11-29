@@ -1,7 +1,4 @@
-image: debian:8
-
-services:
-    - ansible
+image: williamyeh/ansible:debian8
 
 #before_script:
 #    - apt-get update -qy
