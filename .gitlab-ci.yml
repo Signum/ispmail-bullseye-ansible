@@ -1,8 +1,5 @@
 image: williamyeh/ansible:debian8
 
-variables:
-    HOSTNAME: default.example.org
-
 job1:
     script: "ansible-playbook ispmail.yml -l localhost"
 
