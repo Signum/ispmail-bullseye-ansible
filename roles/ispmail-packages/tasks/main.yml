@@ -22,3 +22,6 @@
   - exim4-config
   - exim4-daemon-light
 
+- name: make sure mysql-server is started
+  service: name=mysql-server enabled=yes state=started
+
