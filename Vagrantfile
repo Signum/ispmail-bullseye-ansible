@@ -80,5 +80,18 @@ Vagrant.configure(2) do |config|
     #config.vm.network "private_network", :type => 'dhcp', :name => 'vboxnet0', :adapter => 2
     config.vm.network "private_network", ip: "10.0.0.100"
   end
+
+  # HTTP
+  config.vm.network "forwarded_port", guest: 80, host: 1080
+  # HTTPS
+  config.vm.network "forwarded_port", guest: 443, host: 1443
+  # LDAP
+  config.vm.network "forwarded_port", guest: 143, host: 1143
+  # POP3
+  config.vm.network "forwarded_port", guest: 110, host: 1110
+  # SMTP
+  config.vm.network "forwarded_port", guest: 25, host: 1025
+  # Submission
+  config.vm.network "forwarded_port", guest: 587, host: 1587
 end
 
