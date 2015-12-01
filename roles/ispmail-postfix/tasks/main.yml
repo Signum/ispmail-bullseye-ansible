@@ -30,12 +30,8 @@
   - virtual-mailbox-maps
   - virtual-alias-maps
 
-- name: Define dovecot service in master.cf
-  command: postconf -vM dovecot/unix='dovecot unix - n n - - pipe flags=DRhu user=vmail:vmail argv=/usr/lib/dovecot/dovecot-lda -f ${sender} -d ${recipient}'
-  notify: restart postfix
-
-- name: Set virtual_transport to dovecot
-  command: postconf virtual_transport=dovecot
+- name: Make Postfix use LMTP to send emails to Dovecot
+  command: postconf virtual_transport=lmtp:unix:private/dovecot-lmtp
 
 - name: Restricting delivery to Dovecot to one email at a time
   command: postconf dovecot_destination_recipient_limit=1

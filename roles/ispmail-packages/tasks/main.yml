@@ -9,6 +9,7 @@
   - dovecot-mysql
   - dovecot-pop3d
   - dovecot-imapd
+  - dovecot-lmtpd
   - dovecot-managesieved
   - phpmyadmin
   - spamass-milter
