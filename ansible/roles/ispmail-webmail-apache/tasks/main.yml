@@ -2,7 +2,7 @@
   apt: name={{item}} state=installed
   with_items:
   - apache2
-  - libapache2-mod-php5
+  - libapache2-mod-php
   notify: restart apache
 - name: Create Apache vhost configuration for HTTPS (RoundCube and PHPmyadmin)
   template: src=webmail.conf-443.j2 dest=/etc/apache2/sites-available/default-ssl.conf

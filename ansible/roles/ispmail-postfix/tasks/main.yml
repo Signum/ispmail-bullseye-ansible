@@ -60,28 +60,22 @@
 - name: Set TLS encryption key
   command: postconf smtpd_tls_key_file=/etc/ssl/private/mailserver.pem
 
-- name: Copying patch for Debian bug 739738
-  copy: src=spamassassin.patch dest=/tmp/spamassassin.patch
+# - name: Enabling Spamassassin milter
+#   command: postconf smtpd_milters=unix:/spamass/spamass.sock
 
-- name: Patching Debian bug 739738
-  patch: src=/tmp/spamassassin.patch strip=0 basedir=/ remote_src=True
+# - name: Configuring Spamassassin milter
+#   command: postconf milter_connect_macros="i j {daemon_name} v {if_name} _"
 
-- name: Enabling Spamassassin milter
-  command: postconf smtpd_milters=unix:/spamass/spamass.sock
+# - name: Setting spamd options
+#   copy: src=etc-default-spamassassin dest=/etc/default/spamassassin
+#   notify: restart spamassassin
 
-- name: Configuring Spamassassin milter
-  command: postconf milter_connect_macros="i j {daemon_name} v {if_name} _"
+# - name: Adding user spamass-milter to debian-spamd group
+#   user: name=spamass-milter groups=debian-spamd
+#   notify: restart spamassassin
 
-- name: Setting spamd options
-  copy: src=etc-default-spamassassin dest=/etc/default/spamassassin
-  notify: restart spamassassin
-
-- name: Adding user spamass-milter to debian-spamd group
-  user: name=spamass-milter groups=debian-spamd
-  notify: restart spamassassin
-
-- name: Enabling spamd at startup
-  command: systemctl enable spamassassin
+# - name: Enabling spamd at startup
+#   command: systemctl enable spamassassin
 
 - name: Allow emails up to 40 MB large
   command: postconf message_size_limit=41943040
