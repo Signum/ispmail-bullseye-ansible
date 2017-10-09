@@ -3,7 +3,7 @@
   command: >
     openssl req -newkey rsa:4096
       -nodes -sha512 -x509
-      -days {{ ispmail_certificate_days_valid }}
+      -days "{{ ispmail_certificate_days_valid }}"
       -nodes
       -subj "/C={{ ispmail_certificate_country }}/ST={{ ispmail_certificate_state }}/L={{ ispmail_certificate_location }}/O={{ ispmail_certificate_organisation }}/OU={{ ispmail_certificate_orgunit }}{% for domain in ispmail_certificate_domains %}/CN={{ domain }}{% endfor %}/emailAddress={{ ispmail_certificate_email }}"
       -out /etc/ssl/certs/mailserver.pem

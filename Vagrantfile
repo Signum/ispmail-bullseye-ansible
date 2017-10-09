@@ -13,7 +13,7 @@ Vagrant.configure(2) do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
   #config.vm.box = "jessie64"
-  config.vm.box = "debian/jessie64"
+  config.vm.box = "debian/stretch64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -39,6 +39,7 @@ Vagrant.configure(2) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.synced_folder ".", "/root"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -71,8 +72,10 @@ Vagrant.configure(2) do |config|
   # SHELL
 
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "ispmail.yml"
-    ansible.sudo = true
+    ansible.playbook = "playbooks/ispmail.yml"
+    ansible.become = true
+    ansible.become_user = 'root'
+    ansible.compatibility_mode = '2.0'
     #ansible.verbose = 'vvv'
   end
 
@@ -82,16 +85,16 @@ Vagrant.configure(2) do |config|
   end
 
   # HTTP
-  config.vm.network "forwarded_port", guest: 80, host: 1080
+  config.vm.network "forwarded_port", guest: 80, host: 10080
   # HTTPS
-  config.vm.network "forwarded_port", guest: 443, host: 1443
+  config.vm.network "forwarded_port", guest: 443, host: 10443
   # LDAP
-  config.vm.network "forwarded_port", guest: 143, host: 1143
+  config.vm.network "forwarded_port", guest: 143, host: 10143
   # POP3
-  config.vm.network "forwarded_port", guest: 110, host: 1110
+  config.vm.network "forwarded_port", guest: 110, host: 10110
   # SMTP
-  config.vm.network "forwarded_port", guest: 25, host: 1025
+  config.vm.network "forwarded_port", guest: 25, host: 10025
   # Submission
-  config.vm.network "forwarded_port", guest: 587, host: 1587
+  config.vm.network "forwarded_port", guest: 587, host: 10587
 end
 
