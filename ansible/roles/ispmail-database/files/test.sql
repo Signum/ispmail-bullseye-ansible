@@ -23,4 +23,3 @@ REPLACE INTO `mailserver`.`virtual_aliases` (
 VALUES (
       '1', '1', 'jack@example.org', 'john@example.org'
 );
-
