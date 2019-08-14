@@ -1,22 +1,24 @@
+---
+# Set this to true to create a john@example.org account with password 'summersun'
 ispmail_populate_test_data: true
 
+# MySQL password for read-only user
 ispmail_mysql_mailuser_password: ChangeMe
+
+# MySQL password for administrative root user
 ispmail_mysql_root_password: ChangeMeRoot
+
+# MySQL password for storing Roundcube configuration
 ispmail_mysql_roundcube_password: ChangeMeRound
 
+# Allowed authentication mechanisms for IMAP/POP3
+# See: https://wiki2.dovecot.org/Authentication/Mechanisms
 ispmail_dovecot_auth_mechanisms: plain login
 
+# The email address used for administrative purposes
 ispmail_postmaster_address: postmaster@example.org
 
-#ispmail_webmail_hostname: mail.example.org
+# The hostname used in the URL of your webmail service
 ispmail_webmail_hostname: 10.0.0.100
 
-ispmail_certificate_country: DE
-ispmail_certificate_state: Hamburg
-ispmail_certificate_location: Hamburg
-ispmail_certificate_organisation: workaround.org
-ispmail_certificate_orgunit: IT-Crowd
-ispmail_certificate_domains:
-  - example.org
-ispmail_certificate_email: postmaster@example.org
-ispmail_certificate_days_valid: 3650
+# TODO: Let's Encrypt email address
