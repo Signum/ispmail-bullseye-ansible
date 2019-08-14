@@ -1,7 +1,8 @@
-# ISPmail Jessie Ansible Playbook #
+# ISPmail Buster Ansible Playbook
 
-This repository contains a playbook and roles that you can use to set up your own Debian-based mail server. Please follow the instructions at https://workaround.org/ispmail/jessie/ansible
+This repository contains an Ansible playbook and roles to help set up a mail servers.
+Please see the instructions at https://workaround.org/ispmail/buster/ansible
 
-# License #
+# License
 
 Everything in this repository can be freely used under the terms of the MIT license.
