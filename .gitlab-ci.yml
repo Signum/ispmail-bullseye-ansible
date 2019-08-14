@@ -1,8 +1,0 @@
-job1:
-    script:
-        - cd ansible
-        - ansible-playbook ispmail.yml -l localhost
-    tags:
-        - debian
-        - buster
-        - ansible
