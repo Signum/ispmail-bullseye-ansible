@@ -1,8 +1,18 @@
 ---
-# Requires Ansible >= 1.9
+# Check that this system is Debian Buster.
+# Other Debian derivates may work but are untested.
+
+- hosts: all
+  tasks:
+  - name: "Checking operating system version"
+    assert:
+      that: ansible_distribution_release == 'buster'
+      fail_msg: 'This Ansible playbook is only supported on Debian Buster.'
+      success_msg: 'Debian Buster found - that makes me happy.'
+
 - hosts: all
   roles:
-  - dumpvars
+  #- dumpvars
   - ispmail-packages
   - ispmail-certificate
   - ispmail-database
