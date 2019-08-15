@@ -1,20 +1,29 @@
 ---
 - name: Installing required Python mysqldb module for Ansible to manage databases
   apt: name=python-pymysql
-- name: Ensure mysql root password is updated for all root accounts
+
+- name: Set root user password
+  become: true
+  # If .my.cnf already exists, this will cause an mysql-root-password update.
   mysql_user:
     name: root
-    host: localhost
+    password: "{{ ispmail_mysql_root_password}}"
     login_unix_socket: /var/run/mysqld/mysqld.sock
-    password: "{{ ispmail_mysql_root_password }}"
-    priv: '*.*:ALL,GRANT'
     check_implicit_admin: true
-  #become: yes
-  #notify: Restart MySQL
-- name: Creating my-cnf for root user
-  template: src=root-my-cnf.j2 dest=/root/.my.cnf mode=0600
+
+- name: Create .my.cnf
+  template:
+   src: "root-my-cnf.j2"
+   dest: "/root/.my.cnf"
+   owner: root
+   group: root
+   mode: 0600
+
 - name: creating mailserver MySQL database
-  mysql_db: name=mailserver login_password="{{ ispmail_mysql_root_password }}"
+  #become: true
+  mysql_db:
+    name: mailserver
+
 - name: creating Roundcube MySQL database
   mysql_db: name=roundcube
 - name: copying MySQL database schema to server
