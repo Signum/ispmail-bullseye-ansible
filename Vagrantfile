@@ -39,7 +39,7 @@ Vagrant.configure(2) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-  #config.vm.synced_folder "ansible", "/root"
+  #config.vm.synced_folder "ansible", "/vagrant"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -73,6 +73,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "ansible/ispmail.yml"
+    #ansible.playbook = "ispmail.yml"
     ansible.become = true
     #ansible.become_user = 'root'
     ansible.compatibility_mode = '2.0'
@@ -97,4 +98,3 @@ Vagrant.configure(2) do |config|
   # Submission
   config.vm.network "forwarded_port", guest: 587, host: 10587
 end
-

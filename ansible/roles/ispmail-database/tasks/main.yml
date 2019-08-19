@@ -1,15 +1,27 @@
 ---
 - name: Installing required Python mysqldb module for Ansible to manage databases
+#  apt: name=python-mysqldb
   apt: name=python-pymysql
 
-- name: Set root user password
-  become: true
-  # If .my.cnf already exists, this will cause an mysql-root-password update.
+# - name: Set root user password
+#   become: true
+#   # If .my.cnf already exists, this will cause an mysql-root-password update.
+#   mysql_user:
+#     name: root
+#     password: "{{ ispmail_mysql_root_password}}"
+#     login_unix_socket: /var/run/mysqld/mysqld.sock
+#     check_implicit_admin: true
+
+- name: Set a new root password
   mysql_user:
-    name: root
-    password: "{{ ispmail_mysql_root_password}}"
+    check_implicit_admin: yes
+    user: root
+    password: "{{ ispmail_mysql_root_password }}"
     login_unix_socket: /var/run/mysqld/mysqld.sock
-    check_implicit_admin: true
+    host: "{{ item }}"
+  with_items:
+    - localhost
+    - 127.0.0.1
 
 - name: Create .my.cnf
   template:
