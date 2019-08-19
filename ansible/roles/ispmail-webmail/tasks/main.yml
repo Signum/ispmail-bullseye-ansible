@@ -1,21 +1,40 @@
 ---
-- name: adding Jessie backports repository (for Roundcube)
-  apt_repository: repo='deb http://http.debian.net/debian jessie-backports main' state=present
 - name: install required binary packages
-  apt: name={{item}} state=installed
-  with_items:
-  - roundcube 
-  - roundcube-plugins
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+  vars:
+    packages:
+      - roundcube 
+      - roundcube-plugins
 - name: Creating random des_key for Roundcube
   shell: pwgen 24
   register: roundcube_random_des_key
 - name: Deploying Roundcube configuration
-  template: src=roundcube-config.inc.php.j2 dest=/etc/roundcube/config.inc.php owner=root group=www-data mode=640
+  template:
+    src: roundcube-config.inc.php.j2
+    dest: /etc/roundcube/config.inc.php
+    owner: root
+    group: www-data
+    mode: 0640
 - name: Deploying Roundcube managesieve plugin configuration
-  copy: src=roundcube-managesieve-config.inc.php dest=/etc/roundcube/plugins/managesieve/config.inc.php mode=0640
+  copy:
+    src: roundcube-managesieve-config.inc.php 
+    dest: /etc/roundcube/plugins/managesieve/config.inc.php 
+    mode: 0640
 - name: Deploying Roundcube password plugin configuration
-  template: src=roundcube-password-config.inc.php.j2 dest=/etc/roundcube/plugins/password/config.inc.php owner=root group=www-data mode=640
+  template: 
+    src: roundcube-password-config.inc.php.j2 
+    dest: /etc/roundcube/plugins/password/config.inc.php 
+    owner: root 
+    group: www-data 
+    mode: 0640
 - name: Copy ISPmail logo
-  copy: src=ispmail-logo.png dest=/var/lib/roundcube/
+  copy: 
+    src: ispmail-logo.png 
+    dest: /var/lib/roundcube/
 - name: Copy Roundcube database config file
-  template: src=roundcube-debian-db.php.j2 dest=/etc/roundcube/debian-db.php mode=0640
+  template: 
+    src: roundcube-debian-db.php.j2 
+    dest: /etc/roundcube/debian-db.php 
+    mode: 0640
