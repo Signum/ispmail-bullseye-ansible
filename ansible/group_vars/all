@@ -18,7 +18,21 @@ ispmail_dovecot_auth_mechanisms: plain login
 # The email address used for administrative purposes
 ispmail_postmaster_address: postmaster@example.org
 
-# The hostname used in the URL of your webmail service
+# The hostname used in the URL of your webmail service.
+# 10.0.0.100 is just used here to help test this playbook
+# in a Vagrant setup. Please use a valid domain name here
+# that points to your server.
 ispmail_webmail_hostname: 10.0.0.100
+
+# Information for self-signed certificate
+ispmail_certificate_country: DE
+ispmail_certificate_state: Schleswig-Holstein
+ispmail_certificate_location: Ruempel
+ispmail_certificate_organisation: workaround.org
+ispmail_certificate_orgunit: IT-Crowd
+ispmail_certificate_domains:
+  - example.org
+ispmail_certificate_email: postmaster@example.org
+ispmail_certificate_days_valid: 3650
 
 # TODO: Let's Encrypt email address
