@@ -5,6 +5,8 @@
     update_cache: yes
   vars:
     packages:
+    - etckeeper
+    - pwgen
     - mariadb-server
     - postfix
     - postfix-mysql
@@ -20,15 +22,5 @@
     - dovecot-managesieved
     - adminer
     - rspamd
+    - fail2ban
 # TODO: shorewall
-
-# - name: purge Exim installation
-#   apt: name={{item}} state=absent purge=yes
-#   with_items:
-#   - exim4
-#   - exim4-base
-#   - exim4-config
-#   - exim4-daemon-light
-
-# - name: make sure mysql-server is started
-#   service: name=mysql enabled=yes state=started
