@@ -27,9 +27,9 @@
   mysql_db:
     name: mailserver
 
-- name: creating Roundcube MySQL database
-  mysql_db: 
-    name: roundcube
+# - name: creating Roundcube MySQL database
+#   mysql_db: 
+#     name: roundcube
 - name: copying MySQL database schema to server
   copy: 
     src: schema.sql 
@@ -44,11 +44,11 @@
     name: mailuser 
     password: "{{ispmail_mysql_mailuser_password}}"
     priv: mailserver.*:SELECT,INSERT,UPDATE,DELETE
-- name: creating MySQL user for roundcube
-  mysql_user: 
-    name: roundcube 
-    password: "{{ispmail_mysql_roundcube_password}}"
-    priv: roundcube.*:ALL
+# - name: creating MySQL user for roundcube
+#   mysql_user: 
+#     name: roundcube 
+#     password: "{{ispmail_mysql_roundcube_password}}"
+#     priv: roundcube.*:ALL
 - name: copying MySQL test data to server
   copy: 
     src: test.sql

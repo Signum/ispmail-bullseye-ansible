@@ -3,14 +3,13 @@
 		ServerAdmin {{ ispmail_postmaster_address }}
 		ServerName {{ ispmail_webmail_hostname }}
 
-		Include /etc/roundcube/apache.conf
-		Alias / /var/lib/roundcube/
-
 		# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
 		# error, crit, alert, emerg.
 		# It is also possible to configure the loglevel for particular
 		# modules, e.g.
 		#LogLevel info ssl:warn
+
+		RedirectMatch permanent ^/$ https://{{ ispmail_webmail_hostname}}/horde/
 
 		ErrorLog ${APACHE_LOG_DIR}/webmail.error.log
 		CustomLog ${APACHE_LOG_DIR}/webmail.access.log combined

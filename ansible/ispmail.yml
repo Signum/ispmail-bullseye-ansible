@@ -19,5 +19,5 @@
 #  - ispmail-postfix
 #  - ispmail-dovecot
 #  - ispmail-webmail
-#  - ispmail-webmail-apache
+  - ispmail-webmail-apache-horde
   - ispmail-tests

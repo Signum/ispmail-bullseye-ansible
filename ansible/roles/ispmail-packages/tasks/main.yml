@@ -6,14 +6,15 @@
   vars:
     packages:
     - etckeeper
+    - certbot
     - pwgen
     - mariadb-server
     - postfix
     - postfix-mysql
-    - roundcube
-    - roundcube-mysql
-    - roundcube-plugins
-    - roundcube-plugins-extra
+    # - roundcube
+    # - roundcube-mysql
+    # - roundcube-plugins
+    # - roundcube-plugins-extra
     - swaks
     - dovecot-mysql
     - dovecot-pop3d

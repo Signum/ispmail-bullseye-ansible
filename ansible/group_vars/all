@@ -9,7 +9,10 @@ ispmail_mysql_mailuser_password: ChangeMe
 ispmail_mysql_root_password: ChangeMeRoot
 
 # MySQL password for storing Roundcube configuration
-ispmail_mysql_roundcube_password: ChangeMeRound
+#ispmail_mysql_roundcube_password: ChangeMeRound
+
+# MySQL password for storing Horde webmail user configuration
+ispmail_mysql_horde_password: ChangeMeHorde
 
 # Allowed authentication mechanisms for IMAP/POP3
 # See: https://wiki2.dovecot.org/Authentication/Mechanisms
