@@ -16,7 +16,7 @@
     src: master.cf
     dest: /etc/postfix/master.cf
     mode: 0644
-    notify: restart postfix
+  notify: restart postfix
 
 # - name: tell Postfix to use the virtual mailbox domain mapping
 #   command: postconf virtual_mailbox_domains=mysql:/etc/postfix/mysql-virtual-mailbox-domains.cf
