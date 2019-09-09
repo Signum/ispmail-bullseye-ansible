@@ -1,8 +1,19 @@
-- name: Install required binary packages
-  apt: name={{item}} state=installed
-  with_items:
-  - apache2
-  - libapache2-mod-php
+- name: install required binary packages
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+      - apache2
+      - php-horde-imp
+      - php-horde-ingo
+      - php-horde-kronolith
+      - php-horde-turba
+
+- name: install patch to fix Debian bug #931255
+  patch:
+    src: horde-text-filter-linkurls.patch
+    basedir: /usr/share/php/Horde
+
   notify: restart apache
 - name: Create Apache vhost configuration for HTTPS (Horde and Adminer)
   template:
@@ -30,15 +41,15 @@
     password: "{{ispmail_mysql_horde_password}}"
     priv: horde.*:ALL
 
-- name: Generate random secret key for this Horde installation
-  command: pwgen -s 20
-  register: horde_secret_key
-- name: Generate Horde config file
-  template:
-    src: horde/conf.php.j2
-    dest: /etc/horde/horde/conf.php
+# - name: Generate random secret key for this Horde installation
+#   command: pwgen -s 20
+#   register: horde_secret_key
+# - name: Generate Horde config file
+#   template:
+#     src: horde/conf.php.j2
+#     dest: /etc/horde/horde/conf.php
 
-- name: Create Horde database schema
-  command: /usr/bin/horde-db-migrate
+# - name: Create Horde database schema
+#   command: /usr/bin/horde-db-migrate
 
-# code: language=ansible insertSpaces=true tabSize=2
+# # code: language=ansible insertSpaces=true tabSize=2
