@@ -37,7 +37,7 @@
 # settings, like: host=sql1.host.org host=sql2.host.org
 #
 # pgsql:
-#   For available options, see the PostgreSQL documention for the
+#   For available options, see the PostgreSQL documentation for the
 #   PQconnectdb function of libpq.
 #   Use maxconns=n (default 5) to change how many connections Dovecot can
 #   create to pgsql.
@@ -48,6 +48,9 @@
 #
 #   But also adds some new settings:
 #     client_flags           - See MySQL manual
+#     connect_timeout        - Connect timeout in seconds (default: 5)
+#     read_timeout           - Read timeout in seconds (default: 30)
+#     write_timeout          - Write timeout in seconds (default: 30)
 #     ssl_ca, ssl_ca_path    - Set either one or both to enable SSL
 #     ssl_cert, ssl_key      - For sending client-side certificates to server
 #     ssl_cipher             - Set minimum allowed cipher security (default: HIGH)
@@ -141,7 +144,5 @@
 #iterate_query = SELECT username AS user FROM users
 
 driver = mysql
-connect = host=127.0.0.1 dbname=mailserver user=mailuser password={{ispmail_mysql_mailserver_password}}
-default_pass_scheme = SHA256-CRYPT
+connect = host=127.0.0.1 dbname=mailserver user=mailserver password = {{ispmail_mysql_mailserver_password}}
 password_query = SELECT email as user, password FROM virtual_users WHERE email='%u';
-

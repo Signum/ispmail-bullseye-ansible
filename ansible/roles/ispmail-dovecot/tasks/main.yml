@@ -5,14 +5,8 @@
   user: name=vmail uid=5000 group=vmail home=/var/vmail
 - name: Create mailbox directory
   file: path=/var/vmail state=directory owner=vmail group=vmail
-- name: Allow LOGIN authentication method for Outlook clients
-  lineinfile: dest=/etc/dovecot/conf.d/10-auth.conf regexp='^auth_mechanisms =' line='auth_mechanisms = {{ispmail_dovecot_auth_mechanisms}}' backrefs=yes
-  notify: restart dovecot
-- name: Disabling system authentication
-  lineinfile: dest=/etc/dovecot/conf.d/10-auth.conf regexp='^!include auth-system.conf.ext' line='#!include auth-system.conf.ext' backrefs=yes
-  notify: restart dovecot
-- name: Enabling SQL-based authentication
-  lineinfile: dest=/etc/dovecot/conf.d/10-auth.conf regexp='^\#!include auth-sql.conf.ext' line='!include auth-sql.conf.ext' backrefs=yes
+- name: Copying SQL authentication configuration (auth-sql.conf.ext)
+  copy: src=10-auth.conf dest=/etc/dovecot/conf.d/10-auth.conf
   notify: restart dovecot
 - name: Copying SQL authentication configuration (auth-sql.conf.ext)
   copy: src=auth-sql.conf.ext dest=/etc/dovecot/conf.d/auth-sql.conf.ext
@@ -24,15 +18,12 @@
   copy: src=10-master.conf dest=/etc/dovecot/conf.d/10-master.conf
   notify: restart dovecot
 - name: Copying SSL configuration (10-ssl.conf)
-  copy: src=10-ssl.conf dest=/etc/dovecot/conf.d/10-ssl.conf
+  template: src=10-ssl.conf dest=/etc/dovecot/conf.d/10-ssl.conf
   notify: restart dovecot
 - name: Copying LMTP configuration (20-lmtp.conf - enable sieve plugin)
   copy: src=20-lmtp.conf dest=/etc/dovecot/conf.d/20-lmtp.conf
   notify: restart dovecot
-- name: Copying mailboxes configuration (15-mailboxes.conf - autocreate folders)
-  copy: src=15-mailboxes.conf dest=/etc/dovecot/conf.d/15-mailboxes.conf
-  notify: restart dovecot
-- name: Copying SQL access configuration (dovecot-ssql.conf.ext)
+- name: Copying SQL access configuration (dovecot-sql.conf.ext)
   template: src=dovecot-sql.conf.ext.j2 dest=/etc/dovecot/dovecot-sql.conf.ext
   notify: restart dovecot
 - name: Fixing ownership and mode of dovecot.conf
@@ -49,4 +40,3 @@
 - name: Copying Sieve plugin configuration (90-sieve.conf)
   copy: src=90-sieve.conf dest=/etc/dovecot/conf.d/90-sieve.conf
   notify: restart dovecot
-

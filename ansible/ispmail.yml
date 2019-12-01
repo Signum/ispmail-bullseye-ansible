@@ -19,8 +19,10 @@
       tags: certificate
     - role: ispmail-database
       tags: database
-    #  - ispmail-postfix
-    #  - ispmail-dovecot
+    - role: ispmail-postfix
+      tags: postfix
+    - role: ispmail-dovecot
+      tags: dovecot
     - role: ispmail-webmail-apache-roundcube
       tags: roundcube
     #  - ispmail-webmail-apache-horde
