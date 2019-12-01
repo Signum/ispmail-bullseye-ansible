@@ -144,5 +144,5 @@
 #iterate_query = SELECT username AS user FROM users
 
 driver = mysql
-connect = host=127.0.0.1 dbname=mailserver user=mailserver password = {{ispmail_mysql_mailserver_password}}
+connect = host=127.0.0.1 dbname=mailserver user=mailserver password={{ispmail_mysql_mailserver_password}}
 password_query = SELECT email as user, password FROM virtual_users WHERE email='%u';
