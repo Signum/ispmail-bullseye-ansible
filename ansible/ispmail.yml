@@ -17,7 +17,8 @@
       tags: packages
     - role: ispmail-certificate
       tags: certificate
-    # - ispmail-database
+    - role: ispmail-database
+      tags: database
     #  - ispmail-postfix
     #  - ispmail-dovecot
     - role: ispmail-webmail-apache-roundcube

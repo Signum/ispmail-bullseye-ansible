@@ -3,52 +3,53 @@
   #  apt: name=python-mysqldb
   apt: name=python-pymysql
 
-- name: Create .my.cnf
-  template:
-    src: "root-my-cnf.j2"
-    dest: "/root/.my.cnf"
-    owner: root
-    group: root
-    mode: 0600
+# - name: Create .my.cnf
+#   template:
+#     src: "root-my-cnf.j2"
+#     dest: "/root/.my.cnf"
+#     owner: root
+#     group: root
+#     mode: 0600
 
-- name: Set a new root password
-  mysql_user:
-    check_implicit_admin: yes
-    user: root
-    password: "{{ ispmail_mysql_root_password }}"
-    login_unix_socket: /var/run/mysqld/mysqld.sock
-    host: "{{ item }}"
-  with_items:
-    - localhost
-    - 127.0.0.1
+# - name: Set a new root password
+#   mysql_user:
+#     check_implicit_admin: yes
+#     user: root
+#     password: "{{ ispmail_mysql_root_password }}"
+#     login_unix_socket: /var/run/mysqld/mysqld.sock
+#     host: "{{ item }}"
+#   with_items:
+#     - localhost
+#     - 127.0.0.1
 
 - name: creating mailserver MySQL database
-  #become: true
   mysql_db:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
     name: mailserver
-
-# - name: creating Roundcube MySQL database
-#   mysql_db:
-#     name: roundcube
 - name: copying MySQL database schema to server
   copy:
     src: schema.sql
     dest: /tmp
 - name: setting up SQL schema of mailserver database
   mysql_db:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
     name: mailserver
     state: import
     target: /tmp/schema.sql
+- name: creating MySQL user mailadmin
+  mysql_user:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    name: mailadmin
+    password: "{{ispmail_mysql_mailadmin_password}}"
+    priv: mailserver.*:SELECT,INSERT,UPDATE,DELETE
+    host: localhost
 - name: creating MySQL user to read the mailserver database
   mysql_user:
-    name: mailuser
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    name: mailserver
     password: "{{ispmail_mysql_mailserver_password}}"
-    priv: mailserver.*:SELECT,INSERT,UPDATE,DELETE
-# - name: creating MySQL user for roundcube
-#   mysql_user:
-#     name: roundcube
-#     password: "{{ispmail_mysql_roundcube_password}}"
-#     priv: roundcube.*:ALL
+    priv: mailserver.*:SELECT
+    host: 127.0.0.1
 - name: copying MySQL test data to server
   copy:
     src: test.sql
@@ -56,6 +57,7 @@
   when: ispmail_populate_test_data == true
 - name: populating the database with test data
   mysql_db:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
     name: mailserver
     state: import
     target: /tmp/test.sql

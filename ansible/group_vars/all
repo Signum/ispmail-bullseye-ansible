@@ -7,7 +7,10 @@ ispmail_populate_test_data: true
 ispmail_fqdn: yoda.workaround.org
 
 # MySQL password for read-only user
-ispmail_mysql_mailserver_password: ChangeMe
+ispmail_mysql_mailserver_password: ChangeMeServer
+
+# MySQL password for read-write user
+ispmail_mysql_mailadmin_password: ChangeMeAdmin
 
 # MySQL password for administrative root user
 ispmail_mysql_root_password: ChangeMeRoot
