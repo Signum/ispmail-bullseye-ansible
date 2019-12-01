@@ -5,23 +5,27 @@
     update_cache: yes
   vars:
     packages:
-    - etckeeper
-    - certbot
-    - pwgen
-    - mariadb-server
-    - postfix
-    - postfix-mysql
-    # - roundcube
-    # - roundcube-mysql
-    # - roundcube-plugins
-    # - roundcube-plugins-extra
-    - swaks
-    - dovecot-mysql
-    - dovecot-pop3d
-    - dovecot-imapd
-    - dovecot-lmtpd
-    - dovecot-managesieved
-    - adminer
-    - rspamd
-    - fail2ban
+      - etckeeper
+      - certbot
+      - pwgen
+      - mariadb-server
+      - postfix
+      - postfix-mysql
+      # - roundcube
+      # - roundcube-mysql
+      # - roundcube-plugins
+      # - roundcube-plugins-extra
+      - swaks
+      - dovecot-mysql
+      - dovecot-pop3d
+      - dovecot-imapd
+      - dovecot-lmtpd
+      - dovecot-managesieved
+      - apache2
+      - php
+      - adminer
+      - rspamd
+      - fail2ban
+      - ca-certificates
+      - mutt
 # TODO: shorewall
