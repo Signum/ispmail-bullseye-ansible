@@ -17,14 +17,9 @@ passdb {
 #}
 
 userdb {
-  driver = static
-  args = uid=vmail gid=vmail home=/var/vmail/%d/%n
+  driver = sql
+  args = /etc/dovecot/dovecot-sql.conf.ext
 }
-
-#userdb {
-#  driver = sql
-#  args = /etc/dovecot/dovecot-sql.conf.ext
-#}
 
 # If you don't have any user-specific settings, you can avoid the user_query
 # by using userdb static instead of userdb sql, for example:

@@ -40,3 +40,12 @@
 - name: Copying Sieve plugin configuration (90-sieve.conf)
   copy: src=90-sieve.conf dest=/etc/dovecot/conf.d/90-sieve.conf
   notify: restart dovecot
+- name: Copying Quota plugin configuration (90-quota.conf)
+  copy: src=90-quota.conf dest=/etc/dovecot/conf.d/90-quota.conf
+  notify: restart dovecot
+- name: Copying quota warning shell script to /usr/local/bin
+  template:
+    src: quota-warning.sh.j2
+    dest: /usr/local/bin/quota-warning.sh
+    mode: 0750
+  notify: restart dovecot

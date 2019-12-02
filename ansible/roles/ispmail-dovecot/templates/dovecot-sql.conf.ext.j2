@@ -145,4 +145,9 @@
 
 driver = mysql
 connect = host=127.0.0.1 dbname=mailserver user=mailserver password={{ispmail_mysql_mailserver_password}}
-password_query = SELECT email as user, password FROM virtual_users WHERE email='%u';
+user_query = SELECT email as user, \
+  concat('*:bytes=', quota) AS quota_rule, \
+  '/var/vmail/%d/%n' AS home, \
+  5000 AS uid, 5000 AS gid \
+  FROM virtual_users WHERE email='%u';
+password_query = SELECT password FROM virtual_users WHERE email='%u';

@@ -78,3 +78,6 @@
 
 - name: Make Postfix listen on all interfaces
   command: postconf inet_interfaces=all
+
+- name: Enable user quota checking
+  command: "postconf 'smtpd_recipient_restrictions = reject_unauth_destination check_policy_service unix:private/quota-status'"
