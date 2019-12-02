@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS `virtual_users` (
   `domain_id` int(11) NOT NULL,
   `password` varchar(150) NOT NULL,
   `email` varchar(100) NOT NULL,
+  `quota` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   FOREIGN KEY (domain_id) REFERENCES virtual_domains(id) ON DELETE CASCADE
