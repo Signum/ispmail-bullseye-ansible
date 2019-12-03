@@ -3,7 +3,7 @@
 ispmail_populate_test_data: true
 
 # MySQL password for read-only user
-ispmail_mysql_mailuser_password: ChangeMe
+ispmail_mysql_mailserver_password: ChangeMeServer
 
 # MySQL password for administrative root user
 ispmail_mysql_root_password: ChangeMeRoot
