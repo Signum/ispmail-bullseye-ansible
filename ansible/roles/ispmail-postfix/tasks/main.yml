@@ -76,25 +76,18 @@
 - name: Set TLS encryption key
   command: postconf smtpd_tls_key_file=/etc/ssl/private/mailserver.pem
 
-# - name: Enabling Spamassassin milter
-#   command: postconf smtpd_milters=unix:/spamass/spamass.sock
-
-# - name: Configuring Spamassassin milter
-#   command: postconf milter_connect_macros="i j {daemon_name} v {if_name} _"
-
-# - name: Setting spamd options
-#   copy: src=etc-default-spamassassin dest=/etc/default/spamassassin
-#   notify: restart spamassassin
-
-# - name: Adding user spamass-milter to debian-spamd group
-#   user: name=spamass-milter groups=debian-spamd
-#   notify: restart spamassassin
-
-# - name: Enabling spamd at startup
-#   command: systemctl enable spamassassin
-
 - name: Allow emails up to 40 MB large
   command: postconf message_size_limit=41943040
 
 - name: Make Postfix listen on all interfaces
   command: postconf inet_interfaces=all
+
+- name: Set rspamd milter for smtpd
+  command: postconf smtpd_milters=inet:127.0.0.1:11332
+
+- name: Set rspamd milter for local mails
+  command: postconf non_smtpd_milters=inet:127.0.0.1:11332
+
+- name: Set rspamd milter macros
+  command: postconf milter_mail_macros="i {mail_addr} {client_addr} {client_name} {auth_authen}"
+
