@@ -12,4 +12,3 @@
     creates: /etc/ssl/certs/mailserver.pem
 - name: Restrict access permissions of the private key
   file: path=/etc/ssl/private/mailserver.pem mode=0640
-

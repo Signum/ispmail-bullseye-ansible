@@ -4,20 +4,27 @@
 
 - hosts: all
   tasks:
-  - name: "Checking operating system version"
-    assert:
-      that: ansible_distribution_release == 'buster'
-      fail_msg: 'This Ansible playbook is only supported on Debian Buster.'
-      success_msg: 'Debian Buster found - that makes me happy.'
+    - name: "Checking operating system version"
+      assert:
+        that: ansible_distribution_release == 'buster'
+        fail_msg: "This Ansible playbook is only supported on Debian Buster."
+        success_msg: "Debian Buster found - that makes me happy."
 
 - hosts: all
   roles:
-  #- dumpvars
-  - ispmail-packages
-  - ispmail-certificate
-  - ispmail-database
-  - ispmail-postfix
-  - ispmail-dovecot
-#  - ispmail-webmail
-  - ispmail-webmail-apache-horde
-  - ispmail-tests
+    #- dumpvars
+    - role: ispmail-packages
+      tags: packages
+    - role: ispmail-certificate
+      tags: certificate
+    - role: ispmail-database
+      tags: database
+    - role: ispmail-postfix
+      tags: postfix
+    - role: ispmail-dovecot
+      tags: dovecot
+    - role: ispmail-webmail-apache-roundcube
+      tags: roundcube
+    #  - ispmail-webmail-apache-horde
+    #- ispmail-tests
+

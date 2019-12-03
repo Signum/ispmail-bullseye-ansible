@@ -2,8 +2,15 @@
 # Set this to true to create a john@example.org account with password 'summersun'
 ispmail_populate_test_data: true
 
+# Set the host name that will be used in the URL for webmail.
+# Make sure its properly set in your DNS zone.
+ispmail_fqdn: yoda.workaround.org
+
 # MySQL password for read-only user
 ispmail_mysql_mailserver_password: ChangeMeServer
+
+# MySQL password for read-write user
+ispmail_mysql_mailadmin_password: ChangeMeAdmin
 
 # MySQL password for administrative root user
 ispmail_mysql_root_password: ChangeMeRoot

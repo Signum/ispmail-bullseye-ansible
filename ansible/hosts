@@ -1,1 +1,2 @@
 localhost ansible_connection=local
+yoda.workaround.org

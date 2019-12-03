@@ -12,7 +12,7 @@ REPLACE INTO `mailserver`.`virtual_users` (
       `email`
 )
 VALUES (
-      '1', '1', CONCAT('{PLAIN-MD5}', MD5( 'summersun' )) , 'john@example.org'
+      '1', '1', '{BLF-CRYPT}$2y$05$m.GdQNMyUFNG0vPsaXxSB.0ZQqZhe1e9Un841oBcWi6U6HRF2Kmky', 'john@example.org'
 );
 REPLACE INTO `mailserver`.`virtual_aliases` (
       `id`,

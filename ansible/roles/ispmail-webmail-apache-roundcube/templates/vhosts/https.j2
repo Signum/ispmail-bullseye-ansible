@@ -1,0 +1,15 @@
+<VirtualHost *:443>
+  ServerName {{ispmail_fqdn}}
+  DocumentRoot /var/lib/roundcube
+
+  Alias /adminer /usr/share/adminer/adminer
+  Include /etc/roundcube/apache.conf
+
+  SSLEngine on
+  SSLCertificateKeyFile /etc/ssl/private/mailserver.pem
+  SSLCertificateFile /etc/ssl/certs/mailserver.pem
+
+  # When using Let's Encrypt use these line instead:
+  # SSLCertificateKeyFile /etc/letsencrypt/live/{{ispmail_fqdn}}/privkey.pem
+  # SSLCertificateFile /etc/letsencrypt/live/{{ispmail_fqdn}}/fullchain.pem
+  </VirtualHost>
