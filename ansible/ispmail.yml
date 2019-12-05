@@ -25,6 +25,7 @@
       tags: dovecot
     - role: ispmail-webmail-apache-roundcube
       tags: roundcube
+    - role: ispmail-rspamd
+      tags: rspamd
     #  - ispmail-webmail-apache-horde
     #- ispmail-tests
-

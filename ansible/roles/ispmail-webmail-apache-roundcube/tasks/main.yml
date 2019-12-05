@@ -22,20 +22,20 @@
 - name: Deploying Roundcube managesieve plugin configuration
   template:
     src: plugins/managesieve/config.inc.php.j2
-    dest: /etc/roundcube/plugins/managesieve/config.inc.php 
+    dest: /etc/roundcube/plugins/managesieve/config.inc.php
     owner: root
     group: www-data
     mode: 0640
 - name: Deploying Roundcube password plugin configuration
-  template: 
-    src: plugins/password/config.inc.php.j2 
-    dest: /etc/roundcube/plugins/password/config.inc.php 
-    owner: root 
-    group: www-data 
+  template:
+    src: plugins/password/config.inc.php.j2
+    dest: /etc/roundcube/plugins/password/config.inc.php
+    owner: root
+    group: www-data
     mode: 0640
 - name: Copy ISPmail logo
-  copy: 
-    src: ispmail-logo.png 
+  copy:
+    src: ispmail-logo.png
     dest: /var/lib/roundcube/skins/larry/
 - name: Enable Apache rewrite and ssl module
   shell: a2enmod {{item}}
@@ -75,4 +75,10 @@
   shell: a2ensite {{ispmail_fqdn}}-https.conf
   args:
     creates: /etc/apache2/sites-enabled/{{ispmail_fqdn}}-https.conf
+  notify: restart apache
+
+- name: Enable Apache mod_proxy for rspamd admin web interface
+  command:
+    cmd: a2enmod http_proxy
+    creates: /etc/apache2/mods-enabled/proxy_http.load
   notify: restart apache
