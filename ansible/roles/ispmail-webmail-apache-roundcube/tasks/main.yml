@@ -79,6 +79,6 @@
 
 - name: Enable Apache mod_proxy for rspamd admin web interface
   command:
-    cmd: a2enmod http_proxy
+    cmd: a2enmod proxy_http
     creates: /etc/apache2/mods-enabled/proxy_http.load
   notify: restart apache
