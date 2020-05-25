@@ -81,3 +81,12 @@
 
 - name: Enable user quota checking
   command: "postconf 'smtpd_recipient_restrictions = reject_unauth_destination check_policy_service unix:private/quota-status'"
+
+- name: Enable rspamd milter for smtpd
+  command: "postconf smtpd_milters=inet:127.0.0.1:11332"
+
+- name: Enable rspamd milter for local mails
+  command: "postconf non_smtpd_milters=inet:127.0.0.1:11332"
+
+- name: Configure rspamd milter macros
+  command: "postconf milter_mail_macros='i {mail_addr} {client_addr} {client_name} {auth_authen}'"
