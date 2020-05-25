@@ -34,6 +34,10 @@ ispmail_postmaster_address: postmaster@example.org
 # that points to your server.
 ispmail_webmail_hostname: 10.0.0.100
 
+# Password for rspamd web interface authentication at
+# https://…/rspamd
+ispmail_rspamd_web_password: ChangeMeRspamd
+
 # Information for self-signed certificate
 ispmail_certificate_country: DE
 ispmail_certificate_state: Schleswig-Holstein
@@ -44,5 +48,3 @@ ispmail_certificate_domains:
   - example.org
 ispmail_certificate_email: postmaster@example.org
 ispmail_certificate_days_valid: 3650
-
-# TODO: Let's Encrypt email address

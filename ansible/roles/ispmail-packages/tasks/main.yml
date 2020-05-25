@@ -28,4 +28,5 @@
       - fail2ban
       - ca-certificates
       - mutt
+      - redis
 # TODO: shorewall

@@ -2,8 +2,15 @@
   ServerName {{ispmail_fqdn}}
   DocumentRoot /var/lib/roundcube
 
+  # Adminer
   Alias /adminer /usr/share/adminer/adminer
+
+  # Roundcube
   Include /etc/roundcube/apache.conf
+
+  # Rspamd admin interface
+  ProxyPass "/rspamd" "http://localhost:11334"
+  ProxyPassReverse "/rspamd" "http://localhost:11334"
 
   SSLEngine on
   SSLCertificateKeyFile /etc/ssl/private/mailserver.pem

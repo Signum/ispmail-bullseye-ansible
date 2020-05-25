@@ -1,0 +1,41 @@
+---
+- name: Enable rspamd autolearning
+  copy:
+    src: classifier-bayes.conf
+    dest: /etc/rspamd/override.d/classifier-bayes.conf
+  notify: restart rspamd
+
+- name: Enable rspamd extended headers
+  copy:
+    src: milter_headers.conf
+    dest: /etc/rspamd/override.d/milter_headers.conf
+  notify: restart rspamd
+
+- name: Enable rspamd per-user bayes training
+  copy:
+    src: statistic.conf
+    dest: /etc/rspamd/override.d/statistic.conf
+  notify: restart rspamd
+
+- name: Enable rspamd redis backend
+  copy:
+    src: redis.conf
+    dest: /etc/rspamd/override.d/redis.conf
+  notify: restart rspamd
+
+- name: Hash the rspamd web interface password
+  shell: "rspamadm pw -p {{ispmail_rspamd_web_password}}"
+  register: ispmail_rspamd_web_password_hashed
+  notify: restart rspamd
+
+- name: Set rspamd admin web interface password
+  template:
+    src: worker-controller.conf.j2
+    dest: /etc/rspamd/local.d/worker-controller.inc
+  notify: restart rspamd
+
+- name: Enable redis module in rspamd
+  copy:
+    src: redis.conf
+    dest: /etc/rspamd/override.d/redis.conf
+  notify: restart rspamd
