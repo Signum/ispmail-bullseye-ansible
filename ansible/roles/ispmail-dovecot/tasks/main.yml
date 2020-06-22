@@ -35,6 +35,10 @@
 - name: Fixing ownership and mode of dovecot-sql.conf.ext
   file: path=/etc/dovecot/dovecot-sql.conf.ext owner=root group=root mode=0640
   notify: restart dovecot
+
+- name: Copying Sieve plugin configuration (90-sieve.conf)
+  copy: src=90-sieve.conf dest=/etc/dovecot/conf.d/90-sieve.conf
+  notify: restart dovecot
 - name: Create directory for global sieve-after scripts
   file: path=/etc/dovecot/sieve-after state=directory
 - name: Create global sieve-after script to send spam to its mail folder
@@ -44,10 +48,6 @@
   file:
     path: /etc/dovecot/sieve
     state: directory
-
-- name: Copying Sieve plugin configuration (90-sieve.conf)
-  copy: src=90-sieve.conf dest=/etc/dovecot/conf.d/90-sieve.conf
-  notify: restart dovecot
 - name: Copying Quota plugin configuration (90-quota.conf)
   copy: src=90-quota.conf dest=/etc/dovecot/conf.d/90-quota.conf
   notify: restart dovecot
