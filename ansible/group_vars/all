@@ -1,50 +1,40 @@
 ---
-# Set this to true to create a john@example.org account with password 'summersun'
+# Set this to true to create a john@[your domain] account with password 'summersun'
 ispmail_populate_test_data: true
 
-# Set the host name that will be used in the URL for webmail.
-# Make sure its properly set in your DNS zone.
-ispmail_fqdn: yoda.workaround.org
+### If you do not set the domain below then this playbook will
+### determine your public IP address and create a certificate for
+### ip.ad.dre.ess.nip.io. So by default you will get a working setup.
+#ispmail_fqdn: example.org
 
 # MySQL password for read-only user
-ispmail_mysql_mailserver_password: ChangeMeServer
+ispmail_mysql_mailserver_password: ue4aizee5ameiz9hoo9aejaoxeiT1
 
 # MySQL password for read-write user
-ispmail_mysql_mailadmin_password: ChangeMeAdmin
+ispmail_mysql_mailadmin_password: vaa4aGh1eu7eivewoh9aichei6ohk
 
 # MySQL password for administrative root user
-ispmail_mysql_root_password: ChangeMeRoot
+ispmail_mysql_root_password: Haongah1ohFushu6voo4sooyeo4ai
 
 # MySQL password for storing Roundcube configuration
 #ispmail_mysql_roundcube_password: ChangeMeRound
 
 # MySQL password for storing Horde webmail user configuration
-ispmail_mysql_horde_password: ChangeMeHorde
+#ispmail_mysql_horde_password: ChangeMeHorde
 
 # Allowed authentication mechanisms for IMAP/POP3
 # See: https://wiki2.dovecot.org/Authentication/Mechanisms
 ispmail_dovecot_auth_mechanisms: plain login
 
 # The email address used for administrative purposes
-ispmail_postmaster_address: postmaster@example.org
-
-# The hostname used in the URL of your webmail service.
-# 10.0.0.100 is just used here to help test this playbook
-# in a Vagrant setup. Please use a valid domain name here
-# that points to your server.
-ispmail_webmail_hostname: 10.0.0.100
+ispmail_postmaster_address: postmaster@humboldt-patent.com
 
 # Password for rspamd web interface authentication at
 # https://…/rspamd
-ispmail_rspamd_web_password: ChangeMeRspamd
+ispmail_rspamd_web_password: eiPh4yohghaequuviehiePoh5zeaj
 
-# Information for self-signed certificate
-ispmail_certificate_country: DE
-ispmail_certificate_state: Schleswig-Holstein
-ispmail_certificate_location: Ruempel
-ispmail_certificate_organisation: workaround.org
-ispmail_certificate_orgunit: IT-Crowd
-ispmail_certificate_domains:
-  - example.org
-ispmail_certificate_email: postmaster@example.org
-ispmail_certificate_days_valid: 3650
+certbot_create_if_missing: true
+certbot_create_standalone_stop_services:
+  - apache2
+  - dovecot
+  - postfix

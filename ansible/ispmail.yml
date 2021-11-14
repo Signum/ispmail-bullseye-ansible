@@ -1,31 +1,39 @@
 ---
-# Check that this system is Debian Buster.
+# Check that this system is Debian Bullseye.
 # Other Debian derivates may work but are untested.
 
 - hosts: all
   tasks:
     - name: "Checking operating system version"
       assert:
-        that: ansible_distribution_release == 'buster'
-        fail_msg: "This Ansible playbook is only supported on Debian Buster."
-        success_msg: "Debian Buster found - that makes me happy."
+        that: ansible_distribution_release == 'bullseye'
+        fail_msg: "This Ansible playbook is only supported on Debian Bullseye."
+        success_msg: "Debian Bullseye found. That makes me happy."
 
 - hosts: all
-  roles:
-    #- dumpvars
-    - role: ispmail-packages
-      tags: packages
-    - role: ispmail-certificate
-      tags: certificate
-    - role: ispmail-database
-      tags: database
-    - role: ispmail-postfix
-      tags: postfix
-    - role: ispmail-dovecot
-      tags: dovecot
-    - role: ispmail-webmail-apache-roundcube
-      tags: roundcube
-    - role: ispmail-rspamd
-      tags: rspamd
-    #  - ispmail-webmail-apache-horde
-    #- ispmail-tests
+  tasks:
+    - include_tasks: detect_fqdn.yml
+      when: ispmail_fqdn is not defined
+
+# - hosts: all
+#   roles:
+#     #- dumpvars
+#     - role: ispmail-packages
+#       tags: packages
+#     # - role: ispmail-certificate
+#     #   tags: certificate
+#     - role: geerlingguy.certbot
+#       tags: certbot
+#     # - role: ispmail-database
+#     #   tags: database
+#     # - role: ispmail-postfix
+#     #   tags: postfix
+#     # - role: ispmail-dovecot
+#     #   tags: dovecot
+#     # - role: ispmail-webmail-apache-roundcube
+#     #   tags: roundcube
+
+#     # - role: ispmail-rspamd
+#     #   tags: rspamd
+#     # #  - ispmail-webmail-apache-horde
+#     # #- ispmail-tests

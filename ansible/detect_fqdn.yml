@@ -1,0 +1,33 @@
+---
+- name: Set the FQDN unless the ispmail_fqdn variable is defined
+  block:
+    - name: Detect the public ip of this server
+      uri: 
+        url: "http://ifconfig.co/ip"
+        return_content: yes
+      register: ifconfig_co
+
+    # Use a .nip.io hostname based on the current public IPv4 address
+    # unless those variables were set in the group_vars/host_vars.
+    - name: Remove trailing newline
+      set_fact:
+        public_ip: "{{ifconfig_co.content | regex_replace('\n', '') }}"
+    - name: Use .nip.io domain for `ispmail_fqdn`
+      set_fact:
+        ispmail_fqdn: "{{public_ip}}.nip.io"
+    - name: Set certbot_certs variable
+      set_fact:
+        certbot_certs:
+          - email: "postmaster@{{ispmail_fqdn}}"
+            domains:
+              - "{{ispmail_fqdn}}"
+
+    - name: Public IP
+      debug:
+        var: public_ip
+    - name: Public Hostname
+      debug:
+        var: ispmail_fqdn
+    - name: Certbot settings
+      debug:
+        var: certbot_certs
