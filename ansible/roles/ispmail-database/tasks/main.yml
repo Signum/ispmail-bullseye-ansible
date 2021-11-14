@@ -1,26 +1,8 @@
 ---
 - name: Installing required Python mysqldb module for Ansible to manage databases
-  #  apt: name=python-mysqldb
-  apt: name=python-pymysql
-
-# - name: Create .my.cnf
-#   template:
-#     src: "root-my-cnf.j2"
-#     dest: "/root/.my.cnf"
-#     owner: root
-#     group: root
-#     mode: 0600
-
-# - name: Set a new root password
-#   mysql_user:
-#     check_implicit_admin: yes
-#     user: root
-#     password: "{{ ispmail_mysql_root_password }}"
-#     login_unix_socket: /var/run/mysqld/mysqld.sock
-#     host: "{{ item }}"
-#   with_items:
-#     - localhost
-#     - 127.0.0.1
+  apt:
+    name:
+      - python3-pymysql
 
 - name: creating mailserver MySQL database
   mysql_db:
