@@ -3,6 +3,7 @@
 # Other Debian derivates may work but are untested.
 
 - hosts: all
+  tags: always
   tasks:
     - name: "Checking operating system version"
       assert:
@@ -11,6 +12,7 @@
         success_msg: "Debian Bullseye found. That makes me happy."
 
 - hosts: all
+  tags: always
   tasks:
     - include_tasks: detect_fqdn.yml
       when: ispmail_fqdn is not defined
@@ -30,8 +32,8 @@
       tags: postfix
     - role: ispmail-dovecot
       tags: dovecot
-    # - role: ispmail-webmail-apache-roundcube
-    #   tags: roundcube
+    - role: ispmail-webmail-apache-roundcube
+      tags: roundcube
 
     # - role: ispmail-rspamd
     #   tags: rspamd
