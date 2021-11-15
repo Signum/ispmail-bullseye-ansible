@@ -68,10 +68,10 @@
   command: postconf smtpd_tls_auth_only=yes
 
 - name: Set TLS encryption certificate
-  command: postconf smtpd_tls_cert_file=/etc/ssl/certs/mailserver.pem
+  command: postconf smtpd_tls_cert_file=/etc/letsencrypt/live/{{ispmail_fqdn}}/fullchain.pem
 
 - name: Set TLS encryption key
-  command: postconf smtpd_tls_key_file=/etc/ssl/private/mailserver.pem
+  command: postconf smtpd_tls_key_file=/etc/letsencrypt/live/{{ispmail_fqdn}}/privkey.pem
 
 - name: Allow emails up to 40 MB large
   command: postconf message_size_limit=41943040

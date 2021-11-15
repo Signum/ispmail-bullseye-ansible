@@ -1,7 +1,7 @@
 <IfModule mod_ssl.c>
 	<VirtualHost _default_:443>
 		ServerAdmin {{ ispmail_postmaster_address }}
-		ServerName {{ ispmail_webmail_hostname }}
+		ServerName {{ ispmail_fqdn }}
 
 		# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
 		# error, crit, alert, emerg.
@@ -9,7 +9,7 @@
 		# modules, e.g.
 		#LogLevel info ssl:warn
 
-		RedirectMatch permanent ^/$ https://{{ ispmail_webmail_hostname}}/horde/
+		RedirectMatch permanent ^/$ https://{{ ispmail_fqdn}}/horde/
 
 		ErrorLog ${APACHE_LOG_DIR}/webmail.error.log
 		CustomLog ${APACHE_LOG_DIR}/webmail.access.log combined

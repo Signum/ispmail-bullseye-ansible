@@ -15,25 +15,25 @@
     - include_tasks: detect_fqdn.yml
       when: ispmail_fqdn is not defined
 
-# - hosts: all
-#   roles:
-#     #- dumpvars
-#     - role: ispmail-packages
-#       tags: packages
-#     # - role: ispmail-certificate
-#     #   tags: certificate
-#     - role: geerlingguy.certbot
-#       tags: certbot
-#     # - role: ispmail-database
-#     #   tags: database
-#     # - role: ispmail-postfix
-#     #   tags: postfix
-#     # - role: ispmail-dovecot
-#     #   tags: dovecot
-#     # - role: ispmail-webmail-apache-roundcube
-#     #   tags: roundcube
+- hosts: all
+  roles:
+    #- dumpvars
+    - role: ispmail-packages
+      tags: packages
+    # - role: ispmail-certificate
+    #   tags: certificate
+    - role: geerlingguy.certbot
+      tags: certbot
+    - role: ispmail-database
+      tags: database
+    - role: ispmail-postfix
+      tags: postfix
+    - role: ispmail-dovecot
+      tags: dovecot
+    # - role: ispmail-webmail-apache-roundcube
+    #   tags: roundcube
 
-#     # - role: ispmail-rspamd
-#     #   tags: rspamd
-#     # #  - ispmail-webmail-apache-horde
-#     # #- ispmail-tests
+    # - role: ispmail-rspamd
+    #   tags: rspamd
+    # #  - ispmail-webmail-apache-horde
+    # #- ispmail-tests

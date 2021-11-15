@@ -1,10 +1,8 @@
 ---
-- name: install required binary packages
+- name: install software packages
   apt:
-    name: "{{ packages }}"
     update_cache: yes
-  vars:
-    packages:
+    name:
       - etckeeper
       - certbot
       - pwgen
@@ -29,4 +27,5 @@
       - ca-certificates
       - mutt
       - redis
-# TODO: shorewall
+  notify: restart dovecot
+  

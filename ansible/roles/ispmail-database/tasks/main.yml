@@ -32,15 +32,39 @@
     password: "{{ispmail_mysql_mailserver_password}}"
     priv: mailserver.*:SELECT
     host: 127.0.0.1
-- name: copying MySQL test data to server
-  copy:
-    src: test.sql
-    dest: /tmp
-  when: ispmail_populate_test_data == true
-- name: populating the database with test data
-  mysql_db:
+
+- name: Add MySQL example data
+  community.mysql.mysql_query:
     login_unix_socket: /var/run/mysqld/mysqld.sock
-    name: mailserver
-    state: import
-    target: /tmp/test.sql
+    login_db: mailserver
+    query:
+      - replace into `virtual_domains` (`id`, `name`) values (1, %s)
+    positional_args:
+      - "{{ispmail_fqdn}}"
+  when: ispmail_populate_test_data == true
+
+- name: Add MySQL example data
+  community.mysql.mysql_query:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    login_db: mailserver
+    query:
+      - replace into `virtual_users` (`id`, `domain_id`, `password`, `email`) values (%s, %s, %s, %s)
+    positional_args:
+      - 1
+      - 1
+      - "{BLF-CRYPT}$2y$05$m.GdQNMyUFNG0vPsaXxSB.0ZQqZhe1e9Un841oBcWi6U6HRF2Kmky"
+      - "john@{{ispmail_fqdn}}"
+  when: ispmail_populate_test_data == true
+
+- name: Add MySQL example data
+  community.mysql.mysql_query:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    login_db: mailserver
+    query:
+      - replace into `virtual_aliases` (`id`, `domain_id`, `source`, `destination`) values (%s, %s, %s, %s)
+    positional_args:
+      - 1
+      - 1
+      - "jack@{{ispmail_fqdn}}"
+      - "john@{{ispmail_fqdn}}"
   when: ispmail_populate_test_data == true

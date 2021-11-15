@@ -74,8 +74,9 @@
     - ham
     - spam
 
-# TODO: restart Dovecot
-
+- name: Flush handlers to restart Dovecot to enable Sieve plugins
+  meta: flush_handlers
+  
 - name: recompile sieve scripts
   command:
     cmd: "sievec /etc/dovecot/{{item}}.sieve"
@@ -84,4 +85,3 @@
     - sieve-after/spam-to-folder
     - sieve/learn-ham
     - sieve/learn-spam
-
