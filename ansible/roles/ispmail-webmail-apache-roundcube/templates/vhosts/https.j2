@@ -12,17 +12,14 @@
   # Roundcube
   Include /etc/roundcube/apache.conf
 
-  # Rspamd admin interface
-  ProxyPass "/rspamd" "http://localhost:11334"
-  ProxyPassReverse "/rspamd" "http://localhost:11334"
+  <Location /rspamd>
+    Require all granted
+  </Location>
+  RewriteEngine on
+  RewriteRule ^/rspamd$ /rspamd/ [R,L]
+  RewriteRule ^/rspamd/(.*) http://localhost:11334/$1 [P,L]
 
   SSLEngine on
   SSLCertificateKeyFile /etc/letsencrypt/live/{{ispmail_fqdn}}/privkey.pem
-  #SSLCertificateKeyFile /etc/ssl/private/mailserver.pem
   SSLCertificateFile /etc/letsencrypt/live/{{ispmail_fqdn}}/fullchain.pem
-  #SSLCertificateFile /etc/ssl/certs/mailserver.pem
-
-  # When using Let's Encrypt use these line instead:
-  # SSLCertificateKeyFile /etc/letsencrypt/live/{{ispmail_fqdn}}/privkey.pem
-  # SSLCertificateFile /etc/letsencrypt/live/{{ispmail_fqdn}}/fullchain.pem
-  </VirtualHost>
+</VirtualHost>
