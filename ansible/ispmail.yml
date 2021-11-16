@@ -1,7 +1,6 @@
 ---
 # Check that this system is Debian Bullseye.
 # Other Debian derivates may work but are untested.
-
 - hosts: all
   tags: always
   tasks:
@@ -22,8 +21,6 @@
     #- dumpvars
     - role: ispmail-packages
       tags: packages
-    # - role: ispmail-certificate
-    #   tags: certificate
     - role: geerlingguy.certbot
       tags: certbot
     - role: ispmail-database
@@ -34,8 +31,18 @@
       tags: dovecot
     - role: ispmail-webmail-apache-roundcube
       tags: roundcube
+    - role: ispmail-rspamd
+      tags: rspamd
 
-    # - role: ispmail-rspamd
-    #   tags: rspamd
-    # #  - ispmail-webmail-apache-horde
-    # #- ispmail-tests
+- hosts: all
+  tags: always
+  tasks:
+    - debug:
+        msg:
+          - "Installation complete."
+          - ""
+          - "Web mail URL:            https://{{ispmail_fqdn}}/"
+          - "Example email user:      john@{{ispmail_fqdn}}"
+          - "Example email password:  summersun"
+          - "Rspamd admin URL:        https://{{ispmail_fqdn}}/rspamd"
+          - "Rspamd admin password:   {{ispmail_rspamd_web_password}}"
