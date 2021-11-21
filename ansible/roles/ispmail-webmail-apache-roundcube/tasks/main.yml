@@ -82,3 +82,15 @@
     cmd: a2enmod proxy_http
     creates: /etc/apache2/mods-enabled/proxy_http.load
   notify: restart apache
+
+- name: Create directory for XML auto-configuration
+  file:
+    path: /var/www/html/autoconfig-mail
+    state: directory
+    owner: www-data
+    group: www-data
+
+- name: Create auto-configuration XML file
+  template:
+    src: autoconfig.j2
+    dest: /var/www/html/autoconfig-mail/config-v1.1.xml

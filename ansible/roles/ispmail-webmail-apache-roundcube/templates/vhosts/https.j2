@@ -12,6 +12,9 @@
   # Roundcube
   Include /etc/roundcube/apache.conf
 
+  # Mail client auto-configuration
+  Alias /.well-known/autoconfig/mail /var/www/html/autoconfig-mail
+
   <Location /rspamd>
     Require all granted
   </Location>
