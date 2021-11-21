@@ -3,7 +3,7 @@
   block:
     - name: Detect the public ip of this server
       uri: 
-        url: "http://ifconfig.co/ip"
+        url: "https://api.ipify.org"
         return_content: yes
       register: ifconfig_co
 
