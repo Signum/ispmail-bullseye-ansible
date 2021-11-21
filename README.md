@@ -47,13 +47,16 @@ Same as above. But run this command on the server:
 
     ansible-playbook ispmail.yml -c local
 
-# Only IPv4
+# nip.io / only IPv4
 
 This playbook uses the *.nip.io DNS service to simply use your public IPv4 address
 as a domain. It will request a Let's Encrypt certificate for that domain.
 Although that gives you a fully functioning mail server it's more meant as a
 starting point. Add domains and users to the database. Use a decent name for your
 domain instead of the .nip.io domain.
+
+While IPv6 can easily be done, too, it is not used in this example playbook.
+If that is desired then use an .sslip.io domain for example.
 
 # License
 
