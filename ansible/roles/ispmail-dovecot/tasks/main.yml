@@ -72,6 +72,8 @@
   copy:
     src: "rspamd-learn-{{item}}.sh"
     dest: "/etc/dovecot/sieve/rspamd-learn-{{item}}.sh"
+    owner: vmail
+    group: vmail
     mode: 0700
   with_items:
     - ham
