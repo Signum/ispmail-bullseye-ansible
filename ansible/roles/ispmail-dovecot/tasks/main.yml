@@ -26,6 +26,9 @@
 - name: Copying LMTP configuration (20-lmtp.conf - enable sieve plugin)
   copy: src=20-lmtp.conf dest=/etc/dovecot/conf.d/20-lmtp.conf
   notify: restart dovecot
+- name: Copying IMAP configuration (20-imap.conf - enable quota and sieve plugin)
+  copy: src=20-imap.conf dest=/etc/dovecot/conf.d/20-imap.conf
+  notify: restart dovecot
 - name: Copying SQL access configuration (dovecot-sql.conf.ext)
   template: src=dovecot-sql.conf.ext.j2 dest=/etc/dovecot/dovecot-sql.conf.ext
   notify: restart dovecot
