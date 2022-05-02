@@ -144,10 +144,17 @@
 #iterate_query = SELECT username AS user FROM users
 
 driver = mysql
-connect = host=127.0.0.1 dbname=mailserver user=mailserver password={{ispmail_mysql_mailserver_password}}
-user_query = SELECT email as user, \
-  concat('*:bytes=', quota) AS quota_rule, \
-  '/var/vmail/%d/%n' AS home, \
-  5000 AS uid, 5000 AS gid \
-  FROM virtual_users WHERE email='%u';
-password_query = SELECT password FROM virtual_users WHERE email='%u';
+
+connect = \
+    host={{ ispmail_db_host|default('127.0.0.1') }} \
+    dbname={{ ispmail_db_name|default('mailserver') }} \
+    user={{ ispmail_db_username|default('mailserver') }} \
+    password={{ispmail_mysql_mailserver_password}}
+
+user_query = {{ ispmail_dovecot_user_query|default("if  SELECT email as user, \n"
+"  concat('*:bytes=', quota) AS quota_rule, \n"
+"  '/var/vmail/%d/%n' AS home, \n"
+"  5000 AS uid, 5000 AS gid \n"
+"  FROM virtual_users WHERE email='%u';") }}
+
+password_query = {{ ispmail_dovecot_password_query|default("SELECT password FROM virtual_users WHERE email='%u';") }}
