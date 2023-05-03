@@ -19,20 +19,14 @@
 - hosts: all
   roles:
     #- dumpvars
-    - role: ispmail-packages
-      tags: packages
-    - role: geerlingguy.certbot
-      tags: certbot
-    - role: ispmail-database
-      tags: database
-    - role: ispmail-postfix
-      tags: postfix
-    - role: ispmail-dovecot
-      tags: dovecot
-    - role: ispmail-webmail-apache-roundcube
-      tags: roundcube
-    - role: ispmail-rspamd
-      tags: rspamd
+    - { role: ispmail-packages, tags: packages }
+    - { role: geerlingguy.certbot, tags: certbot, when: lets is true }
+    - { role: ispmail-certificate, tags: cert-self, when: lets is false }
+    - { role: ispmail-database, tags: database }
+    - { role: ispmail-postfix, tags: postfix }
+    - { role: ispmail-dovecot, tags: dovecot }
+    - { role: ispmail-webmail-apache-roundcube, tags: roundcube }
+    - { role: ispmail-rspamd, tags: rspamd }
 
 - hosts: all
   tags: always

@@ -8,19 +8,19 @@ ispmail_populate_test_data: true
 ispmail_fqdn: nnxx.ninux.org
 
 # MySQL password for read-only user
-ispmail_mysql_mailserver_password: 'ow2pg654321;nnxx'
+ispmail_mysql_mailserver_password: 'Change;me'
 
 # MySQL password for read-write user
-ispmail_mysql_mailadmin_password: 'ow2pg654321;nnxx'
+ispmail_mysql_mailadmin_password: 'Change;me'
 
 # MySQL password for administrative root user
-ispmail_mysql_root_password: 'ow2pg654321;nnxx'
+ispmail_mysql_root_password: 'Change;me'
 
 # MySQL password for storing Roundcube configuration
-ispmail_mysql_roundcube_password: 'ow2pg654321;nnxx'
+ispmail_mysql_roundcube_password: 'Change;me'
 
 # MySQL password for storing Horde webmail user configuration
-ispmail_mysql_horde_password: 'ow2pg654321;nnxx'
+ispmail_mysql_horde_password: 'Change;me'
 
 # Allowed authentication mechanisms for IMAP/POP3
 # See: https://wiki2.dovecot.org/Authentication/Mechanisms
@@ -31,7 +31,7 @@ ispmail_postmaster_address: postmaster@mail.nnxx.ninux.org
 
 # Password for rspamd web interface authentication at
 # https://…/rspamd
-ispmail_rspamd_web_password: 'ow2pg654321;nnxx'
+ispmail_rspamd_web_password: 'Change;me'
 
 certbot_create_if_missing: false
 certbot_create_standalone_stop_services:
@@ -39,6 +39,7 @@ certbot_create_standalone_stop_services:
   - dovecot
   - postfix
 
+# Enable or no Let's Encrypt
 lets: false
 
 # Self-signed certificate
