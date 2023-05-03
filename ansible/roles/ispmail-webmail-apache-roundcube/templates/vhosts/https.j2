@@ -23,6 +23,12 @@
   RewriteRule ^/rspamd/(.*) http://localhost:11334/$1 [P,L]
 
   SSLEngine on
+{% if lets is true %}
   SSLCertificateKeyFile /etc/letsencrypt/live/{{ispmail_fqdn}}/privkey.pem
   SSLCertificateFile /etc/letsencrypt/live/{{ispmail_fqdn}}/fullchain.pem
+{% else %}
+  SSLCertificateKeyFile /etc/ssl/private/mailserver.pem
+  SSLCertificateFile /etc/ssl/certs/mailserver.pem
+{% endif %}
+
 </VirtualHost>

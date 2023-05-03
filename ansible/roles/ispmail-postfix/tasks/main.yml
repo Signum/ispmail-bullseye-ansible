@@ -69,9 +69,20 @@
 
 - name: Set TLS encryption certificate
   command: postconf smtpd_tls_cert_file=/etc/letsencrypt/live/{{ispmail_fqdn}}/fullchain.pem
+  when: lets is true
 
 - name: Set TLS encryption key
   command: postconf smtpd_tls_key_file=/etc/letsencrypt/live/{{ispmail_fqdn}}/privkey.pem
+  when: lets is true
+
+- name: Set TLS encryption certificate (self-signed)
+  command: postconf smtpd_tls_cert_file=/etc/ssl/certs/mailserver.pem
+  when: lets is false
+
+- name: Set TLS encryption key (self-signed)
+  command: postconf smtpd_tls_key_file=/etc/ssl/private/mailserver.pem
+  when: lets is false
+
 
 - name: Allow emails up to 40 MB large
   command: postconf message_size_limit=41943040
