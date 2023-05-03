@@ -12,7 +12,7 @@
   notify: restart rspamd
 
 - name: Hash the rspamd web interface password
-  shell: "rspamadm pw -p {{ispmail_rspamd_web_password}}"
+  shell: rspamadm pw -p "{{ ispmail_rspamd_web_password }}"
   register: ispmail_rspamd_web_password_hashed
   notify: restart rspamd
 
