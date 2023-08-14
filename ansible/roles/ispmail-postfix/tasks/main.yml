@@ -24,9 +24,6 @@
 - name: tell Postfix to use the virtual mailbox mapping
   command: postconf virtual_mailbox_maps=mysql:/etc/postfix/mysql-virtual-mailbox-maps.cf
 
-- name: tell Postfix to use the virtual alias mapping
-  command: postconf virtual_alias_maps=mysql:/etc/postfix/mysql-virtual-alias-maps.cf
-
 - name: tell Postfix to use the email-to-email mapping
   command: postconf virtual_alias_maps=mysql:/etc/postfix/mysql-virtual-alias-maps.cf,mysql:/etc/postfix/mysql-email2email.cf
 
@@ -41,9 +38,6 @@
 
 - name: Enabling SMTP authentication
   command: postconf smtpd_sasl_auth_enable=yes
-
-- name: Setting SMTP encryption security level
-  command: postconf smtpd_tls_security_level=may
 
 - name: Setting SMTP encryption security level
   command: postconf smtpd_tls_security_level=may
