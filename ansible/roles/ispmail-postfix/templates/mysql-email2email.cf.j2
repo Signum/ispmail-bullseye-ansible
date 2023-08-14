@@ -1,5 +1,5 @@
-user = mailserver
+user = {{ ispmail_db_username|default('mailserver') }}
 password = {{ispmail_mysql_mailserver_password}}
-hosts = 127.0.0.1
-dbname = mailserver
-query = SELECT email FROM virtual_users WHERE email='%s'
+hosts = {{ ispmail_db_host|default('127.0.0.1') }}
+dbname = {{ ispmail_db_name|default('mailserver') }}
+query = {{ ispmail_postfix_email2email_query|default("SELECT email FROM virtual_users WHERE email='%s'") }}

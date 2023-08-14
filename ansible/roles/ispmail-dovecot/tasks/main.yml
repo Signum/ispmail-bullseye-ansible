@@ -5,7 +5,7 @@
   user: name=vmail uid=5000 group=vmail home=/var/vmail
 - name: Create mailbox directory
   file: path=/var/vmail state=directory owner=vmail group=vmail
-- name: Copying SQL authentication configuration (auth-sql.conf.ext)
+- name: Copying SQL authentication configuration (10-auth.conf)
   copy: src=10-auth.conf dest=/etc/dovecot/conf.d/10-auth.conf
   notify: restart dovecot
 - name: Copying SQL authentication configuration (auth-sql.conf.ext)
