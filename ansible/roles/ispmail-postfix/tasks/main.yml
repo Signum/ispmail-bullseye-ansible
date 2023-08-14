@@ -1,5 +1,5 @@
 ---
-- name: define Postfix virtual mailbox domain mapping
+- name: define Postfix virtual mappings
   template: 
     src: "{{item}}.j2"
     dest: "/etc/postfix/{{item}}"
@@ -21,30 +21,14 @@
 - name: tell Postfix to use the virtual mailbox domain mapping
   command: postconf virtual_mailbox_domains=mysql:/etc/postfix/mysql-virtual-mailbox-domains.cf
 
-- name: define Postfix virtual mailbox mapping
-  template: src=mysql-virtual-mailbox-maps.cf.j2 dest=/etc/postfix/mysql-virtual-mailbox-maps.cf
-  notify: restart postfix
 - name: tell Postfix to use the virtual mailbox mapping
   command: postconf virtual_mailbox_maps=mysql:/etc/postfix/mysql-virtual-mailbox-maps.cf
 
-- name: define Postfix virtual alias mapping
-  template: src=mysql-virtual-alias-maps.cf.j2 dest=/etc/postfix/mysql-virtual-alias-maps.cf
-  notify: restart postfix
 - name: tell Postfix to use the virtual alias mapping
   command: postconf virtual_alias_maps=mysql:/etc/postfix/mysql-virtual-alias-maps.cf
 
-- name: define Postfix email-to-email mapping (required for catchall domains)
-  template: src=mysql-email2email.cf.j2 dest=/etc/postfix/mysql-email2email.cf
-  notify: restart postfix
 - name: tell Postfix to use the email-to-email mapping
   command: postconf virtual_alias_maps=mysql:/etc/postfix/mysql-virtual-alias-maps.cf,mysql:/etc/postfix/mysql-email2email.cf
-
-- name: Restricting access to database mapping files that contain a password
-  file: path=/etc/postfix/mysql-{{item}}.cf mode=0640
-  with_items:
-  - virtual-mailbox-domains
-  - virtual-mailbox-maps
-  - virtual-alias-maps
 
 - name: Make Postfix use LMTP to send emails to Dovecot
   command: postconf virtual_transport=lmtp:unix:private/dovecot-lmtp
@@ -86,16 +70,7 @@
   command: postconf non_smtpd_milters=inet:127.0.0.1:11332
 
 - name: Set rspamd milter macros
-  command: postconf milter_mail_macros="i {mail_addr} {client_addr} {client_name} {auth_authen}'"
+  command: "postconf milter_mail_macros='i {mail_addr} {client_addr} {client_name} {auth_authen}'"
 
 - name: Enable user quota checking
   command: "postconf 'smtpd_recipient_restrictions = reject_unauth_destination check_policy_service unix:private/quota-status'"
-
-- name: Enable rspamd milter for smtpd
-  command: "postconf smtpd_milters=inet:127.0.0.1:11332"
-
-- name: Enable rspamd milter for local mails
-  command: "postconf non_smtpd_milters=inet:127.0.0.1:11332"
-
-- name: Configure rspamd milter macros
-  command: "postconf milter_mail_macros='i {mail_addr} {client_addr} {client_name} {auth_authen}'"
